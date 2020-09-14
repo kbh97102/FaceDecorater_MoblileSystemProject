@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">FaceDecorater</string>
+    <string name="gallery_button_text">Gallery</string>
+    <string name="camera_button_text">camera</string>
 </resources>

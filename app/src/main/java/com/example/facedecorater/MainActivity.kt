@@ -1,19 +1,13 @@
 package com.example.facedecorater
 
-import android.app.Activity
-import android.app.ActivityManager
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.facedecorater.ar.ArTest
-import com.google.ar.core.ArCoreApk
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.start_activity)
 
         if (checkPermissionIsGranted()) {
             val intent = Intent(this, ArTest::class.java)
