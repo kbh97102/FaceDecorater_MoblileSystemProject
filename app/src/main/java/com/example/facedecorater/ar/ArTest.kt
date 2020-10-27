@@ -1,5 +1,6 @@
 package com.example.facedecorater.ar
 
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.facedecorater.R
@@ -25,27 +26,25 @@ class ArTest() : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.ar_screen)
 
-        faceFragment = supportFragmentManager.findFragmentById(R.id.face_fragment) as ArFragment
+        faceFragment = supportFragmentManager.findFragmentById(R.id.arFragment) as ArFragment
 
         // Load the face regions renderable.
         // This is a skinned model that renders 3D objects mapped to the regions of the augmented face.
-        ModelRenderable.builder()
-            .setSource(this, R.raw.sceneform_camera_material)
-            .build()
-            .thenAccept(
-                Consumer { modelRenderable: ModelRenderable ->
-                    faceRegionsRenderable = modelRenderable
-                    modelRenderable.isShadowCaster = false
-                    modelRenderable.isShadowReceiver = false
-                })
+
+
+        //텍스쳐는 없어도 돌아간다 render할 물체만 잘 구해서 적용해보자
+        
+
 
         // Load the face mesh texture.
-        Texture.builder()
-            .setSource(this, R.drawable.fox_face_mesh_texture)
-            .build()
-            .thenAccept(Consumer { texture: Texture ->
-                faceMeshTexture = texture
-            })
+//        Texture.builder()
+//            .setSource(this, R.drawable.fox_face_mesh_texture)
+//            .build()
+//            .thenAccept(Consumer { texture: Texture ->
+//                faceMeshTexture = texture
+//            })
+
+        setMask();
 
         val sceneView = faceFragment.arSceneView
 
@@ -59,7 +58,7 @@ class ArTest() : AppCompatActivity() {
         val scene = sceneView.scene
 
         scene.addOnUpdateListener { frameTime: FrameTime? ->
-            if (faceRegionsRenderable == null || faceMeshTexture == null) {
+            if (faceRegionsRenderable == null) {
                 return@addOnUpdateListener
             }
             val faceList =
@@ -73,7 +72,7 @@ class ArTest() : AppCompatActivity() {
                     val faceNode = AugmentedFaceNode(face)
                     faceNode.setParent(scene)
                     faceNode.faceRegionsRenderable = faceRegionsRenderable
-                    faceNode.faceMeshTexture = faceMeshTexture
+//                    faceNode.faceMeshTexture = faceMeshTexture
                     faceNodeMap.put(face, faceNode)
                 }
             }
@@ -94,4 +93,16 @@ class ArTest() : AppCompatActivity() {
         }
     }
 
+    private fun setMask(){
+        ModelRenderable.builder()
+//            .setSource(this, R.drawable.test)
+            .setSource(this, R.raw.testobj)
+            .build()
+            .thenAccept(
+                Consumer { modelRenderable: ModelRenderable ->
+                    faceRegionsRenderable = modelRenderable
+                    modelRenderable.isShadowCaster = false
+                    modelRenderable.isShadowReceiver = false
+                })
+    }
 }

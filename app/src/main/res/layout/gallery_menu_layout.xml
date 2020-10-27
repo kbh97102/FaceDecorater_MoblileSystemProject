@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/gallery_imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/imageGuideLine"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/imageGuideLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.75"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/button_startGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.2"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/button_topGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.82"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/button_endGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.8"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/button_bottomGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.92"
+        />
+
+    <Button
+        android:id="@+id/gallery_sticker_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="sticker"
+        app:layout_constraintStart_toEndOf="@id/button_startGuideline"
+        app:layout_constraintTop_toBottomOf="@id/button_topGuideline"
+        app:layout_constraintBottom_toTopOf="@id/button_bottomGuideline"
+        app:layout_constraintEnd_toStartOf="@id/gallery_reselect_button"
+        />
+
+    <Button
+        android:id="@+id/gallery_reselect_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="reselect"
+        app:layout_constraintStart_toEndOf="@id/gallery_sticker_button"
+        app:layout_constraintTop_toBottomOf="@id/button_topGuideline"
+        app:layout_constraintBottom_toTopOf="@id/button_bottomGuideline"
+        app:layout_constraintEnd_toStartOf="@id/gallery_sketch_button"
+        />
+
+    <Button
+        android:id="@+id/gallery_sketch_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="sketch"
+        app:layout_constraintStart_toEndOf="@id/gallery_reselect_button"
+        app:layout_constraintTop_toBottomOf="@id/button_topGuideline"
+        app:layout_constraintBottom_toTopOf="@id/button_bottomGuideline"
+        app:layout_constraintEnd_toStartOf="@id/button_endGuideline"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
