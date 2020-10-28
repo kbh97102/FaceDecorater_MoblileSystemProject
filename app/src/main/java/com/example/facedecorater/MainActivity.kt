@@ -21,14 +21,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.start_activity)
+        setContentView(R.layout.gallery_menu_layout)
 
-        if (checkPermissionIsGranted()) {
-            val intent = Intent(this, ArTest::class.java)
-            startActivity(intent)
-        } else {
-            ActivityCompat.requestPermissions(this, PERMISSIONS, REQUEST_CODE)
-        }
+//        if (checkPermissionIsGranted()) {
+//            val intent = Intent(this, ArTest::class.java)
+//            startActivity(intent)
+//        } else {
+//            ActivityCompat.requestPermissions(this, PERMISSIONS, REQUEST_CODE)
+//        }
     }
 
     private fun checkPermissionIsGranted() = PERMISSIONS.all {
