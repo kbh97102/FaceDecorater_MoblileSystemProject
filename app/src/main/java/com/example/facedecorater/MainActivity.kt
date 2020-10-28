@@ -3,11 +3,16 @@ package com.example.facedecorater
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.view.ContextMenu
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.facedecorater.ar.ArTest
+import kotlinx.android.synthetic.main.gallery_menu_layout.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,10 +34,22 @@ class MainActivity : AppCompatActivity() {
 //        } else {
 //            ActivityCompat.requestPermissions(this, PERMISSIONS, REQUEST_CODE)
 //        }
+        my_toolbar.apply {
+            title = ""
+            subtitle = ""
+        }
+        setSupportActionBar(my_toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun checkPermissionIsGranted() = PERMISSIONS.all {
         ContextCompat.checkSelfPermission(baseContext, it) == PackageManager.PERMISSION_GRANTED
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val menuInflater = menuInflater
+        menuInflater.inflate(R.menu.gallery_menu, menu)
+        return true
     }
 
     override fun onRequestPermissionsResult(
