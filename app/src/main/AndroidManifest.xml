@@ -23,6 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ar.ArTest"/>
+        <activity android:name=".gallery.GalleryStickerActivity"/>
     </application>
 
 </manifest>
