@@ -10,7 +10,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.facedecorater.R
 import kotlinx.android.synthetic.main.gallery_menu_layout.*
-import kotlinx.android.synthetic.main.gallery_sticker_layout.*
 import java.util.*
 
 class GalleryMenuActivity : AppCompatActivity() {
@@ -30,6 +29,8 @@ class GalleryMenuActivity : AppCompatActivity() {
         } else {
             getImageFromGallery()
         }
+
+        
     }
 
     private fun getImageFromGallery() {
