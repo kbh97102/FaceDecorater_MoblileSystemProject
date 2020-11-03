@@ -57,6 +57,38 @@
         app:layout_constraintGuide_percent="0.95"
         />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gallery_sticker_buttonStartGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1"
+        />
+
+    <ImageButton
+        android:id="@+id/gallery_heartSticker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/gallery_sticker_buttonStartGuideline"
+        app:layout_constraintTop_toBottomOf="@id/gallery_sticker_addButton_topGuideline"
+        app:layout_constraintBottom_toTopOf="@id/gallery_sticker_addButton_bottomGuideline"
+        app:layout_constraintEnd_toStartOf="@id/gallery_starSticker"
+        android:src="@drawable/heart_sticker"
+        android:background="@android:color/transparent"
+        />
+
+    <ImageButton
+        android:id="@+id/gallery_starSticker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/gallery_heartSticker"
+        app:layout_constraintTop_toBottomOf="@id/gallery_sticker_addButton_topGuideline"
+        app:layout_constraintBottom_toTopOf="@id/gallery_sticker_addButton_bottomGuideline"
+        android:src="@drawable/star_sticker"
+        android:background="@android:color/transparent"
+        android:layout_marginStart="10dp"
+        />
+
     <Button
         android:id="@+id/gallery_addButton"
         android:layout_width="wrap_content"
