@@ -30,7 +30,30 @@ class GalleryMenuActivity : AppCompatActivity() {
             getImageFromGallery()
         }
 
-        
+        //TODO 백스택 관리 어떻게 할까?
+        gallery_menu_sticker_button.setOnClickListener {
+            startStickerActivity()
+        }
+        gallery_menu_sketch_button.setOnClickListener {
+            startSketchActivity()
+        }
+        gallery_menu_reselect_button.setOnClickListener {
+            startReselectActivity()
+        }
+    }
+
+    private fun startStickerActivity(){
+        val intent = Intent(this, GalleryStickerActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun startSketchActivity(){
+        val intent = Intent(this, GallerySketchActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun startReselectActivity(){
+        getImageFromGallery()
     }
 
     private fun getImageFromGallery() {
