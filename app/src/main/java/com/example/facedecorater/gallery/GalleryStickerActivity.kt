@@ -25,11 +25,14 @@ class GalleryStickerActivity : AppCompatActivity() {
         setToolbar()
 
         if (!checkPermissions()) {
-           ActivityCompat.requestPermissions(this, permissions, permissionsRequestCode)
+            ActivityCompat.requestPermissions(this, permissions, permissionsRequestCode)
+        } else {
+            getImageFromGallery()
         }
+    }
 
-
-        var intent = Intent().apply {
+    private fun getImageFromGallery() {
+        val intent = Intent().apply {
             action = Intent.ACTION_GET_CONTENT
             type = "image/*"
         }
@@ -54,12 +57,12 @@ class GalleryStickerActivity : AppCompatActivity() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        if (requestCode == permissionsRequestCode){
-            if (!checkPermissions()){
+        if (requestCode == permissionsRequestCode) {
+            if (!checkPermissions()) {
                 //Display alterDialog to explain
-            }
-            else{
+            } else {
                 //All permissions granted
+                getImageFromGallery()
             }
         }
     }
