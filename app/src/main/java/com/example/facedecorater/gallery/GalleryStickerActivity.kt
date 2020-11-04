@@ -2,15 +2,13 @@ package com.example.facedecorater.gallery
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.Color
-import android.graphics.ImageDecoder
+import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
@@ -42,6 +40,9 @@ class GalleryStickerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.gallery_sticker_layout)
 
+        gallery_sticker_imageView.setImageBitmap(BitmapFactory.decodeResource(resources, R.drawable.test))
+
+
         saveDirectory = getOutputDirectory()
 
         setToolbar()
@@ -59,6 +60,9 @@ class GalleryStickerActivity : AppCompatActivity() {
         }
         gallery_sticker_addButton.setOnClickListener {
             getImageFromGallery()
+        }
+        gallery_sticker_saveButton.setOnClickListener {
+            saveImage()
         }
     }
 
@@ -80,18 +84,39 @@ class GalleryStickerActivity : AppCompatActivity() {
     }
 
     private fun saveImage() {
-        val drawableTest: BitmapDrawable = gallery_sticker_imageView.drawable as BitmapDrawable
+        var displayMetrics = DisplayMetrics()
+        windowManager.defaultDisplay.getMetrics(displayMetrics)
+        val imageBitmap = getBitmapFromImageView(gallery_sticker_imageView)
+
+        val canvasBitmap = Bitmap.createBitmap(displayMetrics.widthPixels, displayMetrics.heightPixels, Bitmap.Config.ARGB_8888)
+
+        var canvas = Canvas(canvasBitmap).apply {
+            drawBitmap(imageBitmap, gallery_sticker_imageView.x,gallery_sticker_imageView.y, null)
+            for(view in stickers!!){
+                val stickerBitmap = getBitmapFromImageView(view)
+                drawBitmap(stickerBitmap, view.x, view.y, null)
+            }
+        }
 
         val photoFile = File(saveDirectory, "test.png")
         photoFile.createNewFile()
-
         val bos = ByteArrayOutputStream()
-        drawableTest.bitmap.compress(Bitmap.CompressFormat.PNG, 100, bos)
+        canvasBitmap.compress(Bitmap.CompressFormat.PNG, 90, bos)
         val fos = FileOutputStream(photoFile)
         fos.write(bos.toByteArray())
         fos.flush()
         fos.close()
-        Toast.makeText(this, "success?", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "success", Toast.LENGTH_SHORT).show()
+    }
+    
+
+    private fun getBitmapFromImageView(imageView: ImageView) : Bitmap{
+        var canvasBitmap = Bitmap.createBitmap(imageView.width, imageView.height, Bitmap.Config.ARGB_8888)
+
+        var canvas = Canvas(canvasBitmap)
+
+        imageView.draw(canvas)
+        return canvasBitmap
     }
 
     private fun getOutputDirectory(): File {
@@ -105,7 +130,6 @@ class GalleryStickerActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> finish()
-            R.id.gallery_sticker_saveButton -> saveImage()
         }
         return super.onOptionsItemSelected(item)
     }
