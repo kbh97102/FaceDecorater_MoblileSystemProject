@@ -143,7 +143,7 @@ class GalleryStickerActivity : AppCompatActivity() {
                 stickerButton.id,
                 ConstraintSet.START,
                 stickerButtons?.get(stickerButtons!!.lastIndex)!!.id,
-                ConstraintSet.START
+                ConstraintSet.END
             )
             connect(
                 stickerButton.id,
