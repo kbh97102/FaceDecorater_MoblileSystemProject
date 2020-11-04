@@ -6,7 +6,6 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
@@ -36,6 +35,9 @@ class GalleryStickerActivity : AppCompatActivity() {
         }
         gallery_starSticker.setOnClickListener {
             addSticker(R.drawable.star_sticker)
+        }
+        gallery_sticker_addButton.setOnClickListener {
+
         }
     }
 
@@ -69,24 +71,27 @@ class GalleryStickerActivity : AppCompatActivity() {
         gallery_sticker_layout.addView(sticker)
     }
 
-    private fun addButtonInRuntime() {
-        var button = Button(this).apply {
+    private fun addStickerButtonInRuntime(src:Int) {
+        var stickerButton = ImageButton(this).apply {
             id = View.generateViewId()
-            text = "testButton"
+            setImageBitmap(BitmapFactory.decodeResource(resources, src))
+            setBackgroundColor(Color.TRANSPARENT)
             layoutParams = ConstraintLayout.LayoutParams(
                 ConstraintLayout.LayoutParams.WRAP_CONTENT,
                 ConstraintLayout.LayoutParams.WRAP_CONTENT
             )
         }
 
-        var constraintSet = ConstraintSet()
+        val constraintSet = ConstraintSet()
 
-        gallery_sticker_layout.addView(button)
+        gallery_sticker_layout.addView(stickerButton)
 
         constraintSet.apply {
             clone(gallery_sticker_layout)
-            connect(button.id, ConstraintSet.START, gallery_sticker_layout.id, ConstraintSet.START)
-            connect(button.id, ConstraintSet.TOP, gallery_sticker_layout.id, ConstraintSet.TOP)
+            connect(stickerButton.id, ConstraintSet.START, stickerButtons?.get(stickerButtons!!.lastIndex)!!.id, ConstraintSet.START)
+            connect(stickerButton.id, ConstraintSet.TOP, gallery_sticker_addButton_topGuideline.id, ConstraintSet.BOTTOM)
+            connect(stickerButton.id, ConstraintSet.BOTTOM, gallery_sticker_addButton_bottomGuideline.id, ConstraintSet.TOP)
         }.run { applyTo(gallery_sticker_layout) }
+        stickerButtons?.add(stickerButton)
     }
 }
