@@ -92,6 +92,35 @@ class GalleryStickerActivity : AppCompatActivity() {
         gallery_sticker_layout.addView(sticker)
     }
 
+    private fun addSticker(imageUri: Uri) {
+        var x: Double? = 0.0
+        var y: Double? = 0.0
+        var sticker = ImageView(this).apply {
+            setImageURI(imageUri)
+            setBackgroundColor(Color.TRANSPARENT)
+            setOnTouchListener { view, event ->
+                when (event.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        x = view.x.toDouble() - event.rawX
+                        y = view.y.toDouble() - event.rawY
+                        true
+                    }
+                    MotionEvent.ACTION_MOVE -> {
+                        this.animate()
+                            .x(event.rawX + x!!.toFloat())
+                            .y(event.rawY + y!!.toFloat())
+                            .setDuration(0)
+                            .start()
+                        true
+                    }
+                    else -> true
+                }
+            }
+        }
+        stickers?.add(sticker)
+        gallery_sticker_layout.addView(sticker)
+    }
+
     private fun addStickerButtonInRuntime(imageUri: Uri) {
         var stickerButton = ImageButton(this).apply {
             id = View.generateViewId()
@@ -101,6 +130,7 @@ class GalleryStickerActivity : AppCompatActivity() {
                 ConstraintLayout.LayoutParams.WRAP_CONTENT,
                 ConstraintLayout.LayoutParams.WRAP_CONTENT
             )
+            setOnClickListener { addSticker(imageUri) }
         }
 
         val constraintSet = ConstraintSet()
