@@ -2,23 +2,30 @@ package com.example.facedecorater.gallery
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.graphics.ImageDecoder
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.view.marginStart
 import com.example.facedecorater.R
 import kotlinx.android.synthetic.main.gallery_sticker_layout.*
 import java.util.*
 import kotlin.collections.ArrayList
 
 @SuppressLint("ClickableViewAccessibility")
+@RequiresApi(Build.VERSION_CODES.P)
 class GalleryStickerActivity : AppCompatActivity() {
 
     private val galleryRequestCode = 3
@@ -92,11 +99,11 @@ class GalleryStickerActivity : AppCompatActivity() {
         gallery_sticker_layout.addView(sticker)
     }
 
-    private fun addSticker(imageUri: Uri) {
+    private fun addSticker(bitmap : Bitmap) {
         var x: Double? = 0.0
         var y: Double? = 0.0
         var sticker = ImageView(this).apply {
-            setImageURI(imageUri)
+            setImageBitmap(bitmap)
             setBackgroundColor(Color.TRANSPARENT)
             setOnTouchListener { view, event ->
                 when (event.action) {
@@ -121,16 +128,25 @@ class GalleryStickerActivity : AppCompatActivity() {
         gallery_sticker_layout.addView(sticker)
     }
 
+
     private fun addStickerButtonInRuntime(imageUri: Uri) {
+        val src = ImageDecoder.createSource(this.contentResolver, imageUri)
+        val bitmap = ImageDecoder.decodeBitmap(src)
+
+        val image = Bitmap.createScaledBitmap(bitmap, 64,64, false)
+
         var stickerButton = ImageButton(this).apply {
             id = View.generateViewId()
-            setImageURI(imageUri)
+            setImageBitmap(image)
             setBackgroundColor(Color.TRANSPARENT)
             layoutParams = ConstraintLayout.LayoutParams(
                 ConstraintLayout.LayoutParams.WRAP_CONTENT,
                 ConstraintLayout.LayoutParams.WRAP_CONTENT
-            )
-            setOnClickListener { addSticker(imageUri) }
+            ).also {
+                it.marginStart = 20
+            }
+
+            setOnClickListener { addSticker(image) }
         }
 
         val constraintSet = ConstraintSet()
