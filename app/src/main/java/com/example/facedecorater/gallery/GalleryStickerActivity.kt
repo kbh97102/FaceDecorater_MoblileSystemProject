@@ -98,7 +98,7 @@ class GalleryStickerActivity : AppCompatActivity() {
             }
         }
 
-        val photoFile = File(saveDirectory, "test.png")
+        val photoFile = File(saveDirectory, "${System.currentTimeMillis()}.png")
         photoFile.createNewFile()
         val bos = ByteArrayOutputStream()
         canvasBitmap.compress(Bitmap.CompressFormat.PNG, 90, bos)
