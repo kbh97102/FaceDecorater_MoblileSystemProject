@@ -6,21 +6,26 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.ImageDecoder
+import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import com.example.facedecorater.R
-import kotlinx.android.synthetic.main.gallery_menu_layout.*
 import kotlinx.android.synthetic.main.gallery_sticker_layout.*
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -29,12 +34,15 @@ import kotlin.collections.ArrayList
 class GalleryStickerActivity : AppCompatActivity() {
 
     private val galleryRequestCode = 3
+    private lateinit var saveDirectory: File
     private var stickerButtons: ArrayList<ImageButton>? = null
     private var stickers: ArrayList<ImageView>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.gallery_sticker_layout)
+
+        saveDirectory = getOutputDirectory()
 
         setToolbar()
         stickers = ArrayList()
@@ -71,9 +79,33 @@ class GalleryStickerActivity : AppCompatActivity() {
         startActivityForResult(intent, galleryRequestCode)
     }
 
+    private fun saveImage() {
+        val drawableTest: BitmapDrawable = gallery_sticker_imageView.drawable as BitmapDrawable
+
+        val photoFile = File(saveDirectory, "test.png")
+        photoFile.createNewFile()
+
+        val bos = ByteArrayOutputStream()
+        drawableTest.bitmap.compress(Bitmap.CompressFormat.PNG, 100, bos)
+        val fos = FileOutputStream(photoFile)
+        fos.write(bos.toByteArray())
+        fos.flush()
+        fos.close()
+        Toast.makeText(this, "success?", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun getOutputDirectory(): File {
+        val mediaDir = externalMediaDirs.firstOrNull()?.let {
+            File(it, resources.getString(R.string.app_name)).apply { mkdirs() }
+        }
+        return if (mediaDir != null && mediaDir.exists())
+            mediaDir else filesDir
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             android.R.id.home -> finish()
+            R.id.gallery_sticker_saveButton -> saveImage()
         }
         return super.onOptionsItemSelected(item)
     }
@@ -86,11 +118,18 @@ class GalleryStickerActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     *  I must use deprecated method because new way is required level is too high(android 11)
+     */
     private fun addSticker(src: Int) {
+        var displayMetrics = DisplayMetrics()
+        windowManager.defaultDisplay.getMetrics(displayMetrics)
         var x: Double? = 0.0
         var y: Double? = 0.0
         var stickerBitmap = BitmapFactory.decodeResource(resources, src)
         var sticker = ImageView(this).apply {
+            setX((displayMetrics.widthPixels/2).toFloat())
+            setY((displayMetrics.heightPixels/2).toFloat())
             setImageBitmap(stickerBitmap)
             setBackgroundColor(Color.TRANSPARENT)
             setOnTouchListener { view, event ->
