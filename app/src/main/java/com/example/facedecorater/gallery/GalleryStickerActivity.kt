@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -17,12 +18,18 @@ import kotlinx.android.synthetic.main.gallery_sticker_layout.*
 @SuppressLint("ClickableViewAccessibility")
 class GalleryStickerActivity : AppCompatActivity() {
 
+    private var stickerButtons: ArrayList<ImageButton>? = null
+    private var stickers : ArrayList<ImageView>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.gallery_sticker_layout)
 
-
+        stickers = ArrayList()
+        stickerButtons = ArrayList<ImageButton>().apply {
+            add(gallery_heartSticker)
+            add(gallery_starSticker)
+        }
 
         gallery_heartSticker.setOnClickListener {
             addSticker(R.drawable.heart_sticker)
@@ -35,28 +42,30 @@ class GalleryStickerActivity : AppCompatActivity() {
     private fun addSticker(src: Int) {
         var x: Double? = 0.0
         var y: Double? = 0.0
-        var sticker = ImageView(this)
         var stickerBitmap = BitmapFactory.decodeResource(resources, src)
-        sticker.setImageBitmap(stickerBitmap)
-        sticker.setBackgroundColor(Color.TRANSPARENT)
-        sticker.setOnTouchListener { view, event ->
-            when (event.action) {
-                MotionEvent.ACTION_DOWN -> {
-                    x = view.x.toDouble() - event.rawX
-                    y = view.y.toDouble() - event.rawY
-                    true
+        var sticker = ImageView(this).apply {
+            setImageBitmap(stickerBitmap)
+            setBackgroundColor(Color.TRANSPARENT)
+            setOnTouchListener { view, event ->
+                when (event.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        x = view.x.toDouble() - event.rawX
+                        y = view.y.toDouble() - event.rawY
+                        true
+                    }
+                    MotionEvent.ACTION_MOVE -> {
+                        this.animate()
+                            .x(event.rawX + x!!.toFloat())
+                            .y(event.rawY + y!!.toFloat())
+                            .setDuration(0)
+                            .start()
+                        true
+                    }
+                    else -> true
                 }
-                MotionEvent.ACTION_MOVE -> {
-                    sticker.animate()
-                        .x(event.rawX + x!!.toFloat())
-                        .y(event.rawY + y!!.toFloat())
-                        .setDuration(0)
-                        .start()
-                    true
-                }
-                else -> true
             }
         }
+        stickers?.add(sticker)
         gallery_sticker_layout.addView(sticker)
     }
 
