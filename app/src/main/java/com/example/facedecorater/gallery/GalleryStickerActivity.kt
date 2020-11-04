@@ -9,7 +9,6 @@ import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageButton
@@ -18,8 +17,8 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
-import androidx.core.view.marginStart
 import com.example.facedecorater.R
+import kotlinx.android.synthetic.main.gallery_menu_layout.*
 import kotlinx.android.synthetic.main.gallery_sticker_layout.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -36,6 +35,7 @@ class GalleryStickerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.gallery_sticker_layout)
 
+        setToolbar()
         stickers = ArrayList()
         stickerButtons = ArrayList<ImageButton>().apply {
             add(gallery_heartSticker)
@@ -51,6 +51,15 @@ class GalleryStickerActivity : AppCompatActivity() {
         gallery_sticker_addButton.setOnClickListener {
             getImageFromGallery()
         }
+    }
+
+    private fun setToolbar() {
+        gallery_sticker_toolbar.apply {
+            title = ""
+            subtitle = ""
+        }
+        setSupportActionBar(gallery_sticker_toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun getImageFromGallery() {
@@ -99,7 +108,7 @@ class GalleryStickerActivity : AppCompatActivity() {
         gallery_sticker_layout.addView(sticker)
     }
 
-    private fun addSticker(bitmap : Bitmap) {
+    private fun addSticker(bitmap: Bitmap) {
         var x: Double? = 0.0
         var y: Double? = 0.0
         var sticker = ImageView(this).apply {
@@ -133,7 +142,7 @@ class GalleryStickerActivity : AppCompatActivity() {
         val src = ImageDecoder.createSource(this.contentResolver, imageUri)
         val bitmap = ImageDecoder.decodeBitmap(src)
 
-        val image = Bitmap.createScaledBitmap(bitmap, 64,64, false)
+        val image = Bitmap.createScaledBitmap(bitmap, 64, 64, false)
 
         var stickerButton = ImageButton(this).apply {
             id = View.generateViewId()
