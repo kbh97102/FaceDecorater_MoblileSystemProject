@@ -1,8 +1,10 @@
 package com.example.facedecorater.gallery
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
@@ -13,12 +15,15 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import com.example.facedecorater.R
 import kotlinx.android.synthetic.main.gallery_sticker_layout.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 @SuppressLint("ClickableViewAccessibility")
 class GalleryStickerActivity : AppCompatActivity() {
 
+    private val galleryRequestCode = 3
     private var stickerButtons: ArrayList<ImageButton>? = null
-    private var stickers : ArrayList<ImageView>? = null
+    private var stickers: ArrayList<ImageView>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +42,23 @@ class GalleryStickerActivity : AppCompatActivity() {
             addSticker(R.drawable.star_sticker)
         }
         gallery_sticker_addButton.setOnClickListener {
+            getImageFromGallery()
+        }
+    }
 
+    private fun getImageFromGallery() {
+        val intent = Intent().apply {
+            action = Intent.ACTION_GET_CONTENT
+            type = "image/*"
+        }
+        startActivityForResult(intent, galleryRequestCode)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == galleryRequestCode && resultCode == RESULT_OK && Objects.nonNull(data)) {
+            val imageUri = data?.data
+            addStickerButtonInRuntime(imageUri!!)
         }
     }
 
@@ -71,10 +92,10 @@ class GalleryStickerActivity : AppCompatActivity() {
         gallery_sticker_layout.addView(sticker)
     }
 
-    private fun addStickerButtonInRuntime(src:Int) {
+    private fun addStickerButtonInRuntime(imageUri: Uri) {
         var stickerButton = ImageButton(this).apply {
             id = View.generateViewId()
-            setImageBitmap(BitmapFactory.decodeResource(resources, src))
+            setImageURI(imageUri)
             setBackgroundColor(Color.TRANSPARENT)
             layoutParams = ConstraintLayout.LayoutParams(
                 ConstraintLayout.LayoutParams.WRAP_CONTENT,
@@ -88,9 +109,24 @@ class GalleryStickerActivity : AppCompatActivity() {
 
         constraintSet.apply {
             clone(gallery_sticker_layout)
-            connect(stickerButton.id, ConstraintSet.START, stickerButtons?.get(stickerButtons!!.lastIndex)!!.id, ConstraintSet.START)
-            connect(stickerButton.id, ConstraintSet.TOP, gallery_sticker_addButton_topGuideline.id, ConstraintSet.BOTTOM)
-            connect(stickerButton.id, ConstraintSet.BOTTOM, gallery_sticker_addButton_bottomGuideline.id, ConstraintSet.TOP)
+            connect(
+                stickerButton.id,
+                ConstraintSet.START,
+                stickerButtons?.get(stickerButtons!!.lastIndex)!!.id,
+                ConstraintSet.START
+            )
+            connect(
+                stickerButton.id,
+                ConstraintSet.TOP,
+                gallery_sticker_addButton_topGuideline.id,
+                ConstraintSet.BOTTOM
+            )
+            connect(
+                stickerButton.id,
+                ConstraintSet.BOTTOM,
+                gallery_sticker_addButton_bottomGuideline.id,
+                ConstraintSet.TOP
+            )
         }.run { applyTo(gallery_sticker_layout) }
         stickerButtons?.add(stickerButton)
     }
