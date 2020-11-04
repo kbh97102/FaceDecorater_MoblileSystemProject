@@ -13,7 +13,15 @@
         android:layout_height="?attr/actionBarSize"
         android:theme="@style/gallery_sticker_theme"
         app:layout_constraintTop_toTopOf="parent"
-        />
+        >
+        <Button
+            android:id="@+id/gallery_sticker_saveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/save"
+            android:layout_gravity="end"
+            />
+    </androidx.appcompat.widget.Toolbar>
 
     <ImageView
         android:id="@+id/gallery_sticker_imageView"
@@ -99,7 +107,5 @@
         app:layout_constraintBottom_toTopOf="@id/gallery_sticker_addButton_bottomGuideline"
         />
 
-
-<!--    TODO sticker button programtically-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
