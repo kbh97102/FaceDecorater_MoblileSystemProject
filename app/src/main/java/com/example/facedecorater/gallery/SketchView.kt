@@ -2,6 +2,7 @@ package com.example.facedecorater.gallery
 
 import android.content.Context
 import android.graphics.*
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewConfiguration
@@ -45,8 +46,8 @@ class SketchView(context : Context) : View(context) {
         canvas?.drawBitmap(extraBitmap, 0f, 0f, null)
     }
 
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
-        motionTouchEventX = event!!.x
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        motionTouchEventX = event.x
         motionTouchEventY = event.y
 
         when(event.action){
@@ -54,7 +55,7 @@ class SketchView(context : Context) : View(context) {
             MotionEvent.ACTION_MOVE -> touchMove()
             MotionEvent.ACTION_UP -> touchUp()
         }
-        return super.onTouchEvent(event)
+        return true
     }
 
     private fun touchStart() {
