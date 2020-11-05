@@ -19,14 +19,19 @@ class SketchView(context: Context) : View(context) {
     private var currentY = 0f
     private var path = Path()
     private var brushSize = 12f
+    private var brushColor = Color.BLACK
     private val paint = Paint().apply {
-        color = Color.BLACK
+        color = brushColor
         isAntiAlias = true
         isDither = true
         style = Paint.Style.STROKE
         strokeJoin = Paint.Join.ROUND
         strokeCap = Paint.Cap.ROUND
         strokeWidth = brushSize
+    }
+
+    fun setBrushColor(color:Int){
+        paint.color = color
     }
 
     fun setBrushSize(size : Float){
