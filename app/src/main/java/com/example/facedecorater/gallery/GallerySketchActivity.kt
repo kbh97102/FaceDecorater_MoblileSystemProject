@@ -15,7 +15,10 @@ class GallerySketchActivity : AppCompatActivity(){
         setContentView(R.layout.gallery_sketch_layout)
 
         setToolbar()
+        addSketchView()
+    }
 
+    private fun addSketchView(){
         val sketchView = SketchView(this).apply {
             id = View.generateViewId()
             setBackgroundColor(Color.TRANSPARENT)
