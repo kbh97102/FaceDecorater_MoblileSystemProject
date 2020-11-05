@@ -3,12 +3,19 @@ package com.example.facedecorater.gallery
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintSet
 import com.example.facedecorater.R
+import com.jaredrummler.android.colorpicker.ColorPickerDialog
 import kotlinx.android.synthetic.main.gallery_sketch_layout.*
 
 class GallerySketchActivity : AppCompatActivity(){
+
+    private lateinit var fab_open : Animation
+    private lateinit var fab_close : Animation
+    private var isFabOpen = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,6 +23,45 @@ class GallerySketchActivity : AppCompatActivity(){
 
         setToolbar()
         addSketchView()
+
+        fab_open = AnimationUtils.loadAnimation(this, R.anim.fab_open)
+        fab_close = AnimationUtils.loadAnimation(this, R.anim.fab_close)
+
+        gallery_brush_button.setOnClickListener {
+            animFab()
+        }
+        gallery_sketch_color_button.setOnClickListener {
+            animFab()
+            ColorPickerDialog.newBuilder().apply {
+                setDialogType(ColorPickerDialog.TYPE_PRESETS)
+            }.run { show(this@GallerySketchActivity) }
+
+        }
+
+    }
+
+    private fun animFab(){
+        if(isFabOpen){
+            gallery_sketch_color_button.apply {
+                startAnimation(fab_close)
+                isClickable = false
+            }
+            gallery_sketch_size_button.apply {
+                startAnimation(fab_close)
+                isClickable = false
+            }
+            isFabOpen = false
+        }else{
+            gallery_sketch_color_button.apply {
+                startAnimation(fab_open)
+                isClickable = true
+            }
+            gallery_sketch_size_button.apply {
+                startAnimation(fab_open)
+                isClickable = true
+            }
+            isFabOpen = true
+        }
     }
 
     private fun addSketchView(){
