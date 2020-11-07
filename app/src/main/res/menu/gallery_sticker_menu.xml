@@ -4,7 +4,7 @@
 
 
     <item
-        android:id="@+id/gallery_sticker_saveButton"
+        android:id="@+id/gallery_sketch_saveButton"
         app:showAsAction="ifRoom"
         android:title="@string/save"
         />

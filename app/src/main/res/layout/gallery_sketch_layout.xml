@@ -14,7 +14,7 @@
         app:layout_constraintTop_toTopOf="parent"
         >
         <Button
-            android:id="@+id/gallery_sticker_saveButton"
+            android:id="@+id/gallery_sketch_saveButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/save"

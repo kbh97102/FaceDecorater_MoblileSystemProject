@@ -1,12 +1,16 @@
 package com.example.facedecorater.gallery
 
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
+import android.util.DisplayMetrics
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import android.widget.SeekBar
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintSet
@@ -14,19 +18,24 @@ import com.example.facedecorater.R
 import com.jaredrummler.android.colorpicker.ColorPickerDialog
 import com.jaredrummler.android.colorpicker.ColorPickerDialogListener
 import kotlinx.android.synthetic.main.gallery_sketch_layout.*
-import kotlinx.android.synthetic.main.size_layout.*
+import kotlinx.android.synthetic.main.gallery_sticker_layout.*
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
 
 class GallerySketchActivity : AppCompatActivity() {
 
     private lateinit var fab_open: Animation
     private lateinit var fab_close: Animation
-    private lateinit var sketchView : SketchView
+    private lateinit var sketchView: SketchView
+    private lateinit var saveDirectory: File
     private var isFabOpen = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.gallery_sketch_layout)
 
+        saveDirectory = getOutputDirectory()
         setToolbar()
         addSketchView()
 
@@ -72,6 +81,54 @@ class GallerySketchActivity : AppCompatActivity() {
                 create()
             }.run { show() }
         }
+        gallery_sketch_saveButton.setOnClickListener {
+            saveImage()
+        }
+    }
+
+    private fun saveImage() {
+        var displayMetrics = DisplayMetrics()
+        windowManager.defaultDisplay.getMetrics(displayMetrics)
+        val imageBitmap = getBitmapFromImageView(gallery_sketch_imageView)
+
+        val canvasBitmap = Bitmap.createBitmap(
+            displayMetrics.widthPixels,
+            displayMetrics.heightPixels,
+            Bitmap.Config.ARGB_8888
+        )
+
+        var canvas = Canvas(canvasBitmap).apply {
+            drawBitmap(imageBitmap, gallery_sketch_imageView.x, gallery_sketch_imageView.y, null)
+            drawBitmap(sketchView.getBitmap(), sketchView.x, sketchView.y, null)
+        }
+
+        val photoFile = File(saveDirectory, "${System.currentTimeMillis()}.png")
+        photoFile.createNewFile()
+        val bos = ByteArrayOutputStream()
+        canvasBitmap.compress(Bitmap.CompressFormat.PNG, 90, bos)
+        val fos = FileOutputStream(photoFile)
+        fos.write(bos.toByteArray())
+        fos.flush()
+        fos.close()
+        Toast.makeText(this, "success", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun getBitmapFromImageView(imageView: ImageView): Bitmap {
+        var canvasBitmap =
+            Bitmap.createBitmap(imageView.width, imageView.height, Bitmap.Config.ARGB_8888)
+
+        var canvas = Canvas(canvasBitmap)
+
+        imageView.draw(canvas)
+        return canvasBitmap
+    }
+
+    private fun getOutputDirectory(): File {
+        val mediaDir = externalMediaDirs.firstOrNull()?.let {
+            File(it, resources.getString(R.string.app_name)).apply { mkdirs() }
+        }
+        return if (mediaDir != null && mediaDir.exists())
+            mediaDir else filesDir
     }
 
     private fun animFab() {
