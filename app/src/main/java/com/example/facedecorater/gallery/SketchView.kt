@@ -35,6 +35,7 @@ class SketchView(context: Context) : View(context) {
     }
 
     fun setBrushSize(size : Float){
+        brushSize = size
         paint.strokeWidth = brushSize
     }
 

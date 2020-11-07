@@ -6,12 +6,15 @@ import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.SeekBar
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintSet
 import com.example.facedecorater.R
 import com.jaredrummler.android.colorpicker.ColorPickerDialog
 import com.jaredrummler.android.colorpicker.ColorPickerDialogListener
 import kotlinx.android.synthetic.main.gallery_sketch_layout.*
+import kotlinx.android.synthetic.main.size_layout.*
 
 class GallerySketchActivity : AppCompatActivity() {
 
@@ -48,6 +51,26 @@ class GallerySketchActivity : AppCompatActivity() {
                 }
             })
             colorPickerDialog.show(supportFragmentManager, "Color Picker")
+        }
+        gallery_sketch_size_button.setOnClickListener {
+            val alertBuilder = AlertDialog.Builder(this)
+            val view = layoutInflater.inflate(R.layout.size_layout, null)
+            val seekBar = view.findViewById<SeekBar>(R.id.size_seekBar)
+            seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
+                }
+
+                override fun onStartTrackingTouch(p0: SeekBar?) {
+                }
+
+                override fun onStopTrackingTouch(p0: SeekBar?) {
+                    sketchView.setBrushSize(p0!!.progress.toFloat())
+                }
+            })
+            alertBuilder.apply {
+                setView(view)
+                create()
+            }.run { show() }
         }
     }
 

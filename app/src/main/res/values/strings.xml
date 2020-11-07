@@ -3,4 +3,5 @@
     <string name="gallery_button_text">Gallery</string>
     <string name="camera_button_text">camera</string>
     <string name="save">Save</string>
+    <string name="size_text">Control Brush Size</string>
 </resources>
