@@ -3,6 +3,7 @@ package com.example.facedecorater.gallery
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +18,7 @@ class GalleryMenuActivity : AppCompatActivity() {
     private val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
     private val permissionsRequestCode = 0
     private val galleryRequestCode = 1
+    private var imageUri : Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +51,7 @@ class GalleryMenuActivity : AppCompatActivity() {
 
     private fun startSketchActivity(){
         val intent = Intent(this, GallerySketchActivity::class.java)
+        intent.putExtra("uri", imageUri)
         startActivity(intent)
     }
 
@@ -101,7 +104,7 @@ class GalleryMenuActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == galleryRequestCode && resultCode == RESULT_OK && Objects.nonNull(data)) {
-            var imageUri = data?.data
+            imageUri = data?.data
             gallery_menu_imageView.setImageURI(imageUri)
         }
     }

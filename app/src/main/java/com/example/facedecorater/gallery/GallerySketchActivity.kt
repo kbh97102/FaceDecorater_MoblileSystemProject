@@ -1,8 +1,10 @@
 package com.example.facedecorater.gallery
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.View
@@ -18,7 +20,6 @@ import com.example.facedecorater.R
 import com.jaredrummler.android.colorpicker.ColorPickerDialog
 import com.jaredrummler.android.colorpicker.ColorPickerDialogListener
 import kotlinx.android.synthetic.main.gallery_sketch_layout.*
-import kotlinx.android.synthetic.main.gallery_sticker_layout.*
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -34,6 +35,9 @@ class GallerySketchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.gallery_sketch_layout)
+
+        val uri = intent.getParcelableExtra<Uri>("uri")
+        gallery_sketch_imageView.setImageURI(uri)
 
         saveDirectory = getOutputDirectory()
         setToolbar()
