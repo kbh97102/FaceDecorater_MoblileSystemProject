@@ -3,6 +3,7 @@ package com.example.facedecorater.camera
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.facedecorater.R
+import com.example.facedecorater.camera.feature.FaceArFragment
 import com.google.ar.core.AugmentedFace
 import com.google.ar.sceneform.rendering.ModelRenderable
 import com.google.ar.sceneform.rendering.Texture

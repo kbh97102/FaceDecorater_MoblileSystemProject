@@ -1,4 +1,4 @@
-package com.example.facedecorater.camera
+package com.example.facedecorater.camera.feature
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -1,25 +1,45 @@
 package com.example.facedecorater.camera
 
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.widget.SeekBar
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import com.example.facedecorater.R
+import com.example.facedecorater.gallery.SketchView
+import com.jaredrummler.android.colorpicker.ColorPickerDialog
+import com.jaredrummler.android.colorpicker.ColorPickerDialogListener
 import kotlinx.android.synthetic.main.camera_sketch_layout.*
+import kotlinx.android.synthetic.main.gallery_sketch_layout.*
+import java.io.ByteArrayOutputStream
 import java.io.File
-import java.lang.Exception
+import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.Executors
 
 class CameraSketch : AppCompatActivity() {
 
+    private lateinit var sketchView: SketchView
+    private lateinit var fab_open: Animation
+    private lateinit var fab_close: Animation
+    private var isFabOpen = false
     private var imageCapture: ImageCapture? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,14 +47,114 @@ class CameraSketch : AppCompatActivity() {
         setContentView(R.layout.camera_sketch_layout)
 
         setToolbar()
+
+        fab_open = AnimationUtils.loadAnimation(this, R.anim.fab_open)
+        fab_close = AnimationUtils.loadAnimation(this, R.anim.fab_close)
+
         startCamera()
+        addSketchView()
+
+        camera_brush_button.setOnClickListener {
+            animFab()
+        }
+        camera_sketch_color_button.setOnClickListener {
+            animFab()
+            val colorPickerDialog = ColorPickerDialog.newBuilder().apply {
+                setDialogType(ColorPickerDialog.TYPE_PRESETS)
+            }.create()
+
+            colorPickerDialog.setColorPickerDialogListener(object : ColorPickerDialogListener {
+                override fun onColorSelected(dialogId: Int, color: Int) {
+                    sketchView.setBrushColor(color)
+                }
+
+                override fun onDialogDismissed(dialogId: Int) {
+                }
+            })
+            colorPickerDialog.show(supportFragmentManager, "Color Picker")
+        }
+        camera_sketch_size_button.setOnClickListener {
+            val alertBuilder = AlertDialog.Builder(this)
+            val view = layoutInflater.inflate(R.layout.size_layout, null)
+            val seekBar = view.findViewById<SeekBar>(R.id.size_seekBar)
+            seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
+                }
+
+                override fun onStartTrackingTouch(p0: SeekBar?) {
+                }
+
+                override fun onStopTrackingTouch(p0: SeekBar?) {
+                    sketchView.setBrushSize(p0!!.progress.toFloat())
+                }
+            })
+            alertBuilder.apply {
+                setView(view)
+                create()
+            }.run { show() }
+        }
     }
 
-    private fun startCamera(){
+    private fun addSketchView() {
+        sketchView = SketchView(this).apply {
+            id = View.generateViewId()
+            setBackgroundColor(Color.TRANSPARENT)
+        }
+        camera_sketch_layout.addView(sketchView)
+        val constraintSet = ConstraintSet()
+        constraintSet.apply {
+            clone(camera_sketch_layout)
+            connect(
+                sketchView.id,
+                ConstraintSet.START,
+                camera_sketch_layout.id,
+                ConstraintSet.START
+            )
+            connect(sketchView.id, ConstraintSet.END, camera_sketch_layout.id, ConstraintSet.END)
+            connect(
+                sketchView.id,
+                ConstraintSet.TOP,
+                camera_sketch_toolbar.id,
+                ConstraintSet.BOTTOM
+            )
+            connect(
+                sketchView.id,
+                ConstraintSet.BOTTOM,
+                camera_sketch_layout.id,
+                ConstraintSet.BOTTOM
+            )
+        }.run { applyTo(camera_sketch_layout) }
+    }
+
+    private fun animFab() {
+        if (isFabOpen) {
+            camera_sketch_color_button.apply {
+                startAnimation(fab_close)
+                isClickable = false
+            }
+            camera_sketch_size_button.apply {
+                startAnimation(fab_close)
+                isClickable = false
+            }
+            isFabOpen = false
+        } else {
+            camera_sketch_color_button.apply {
+                startAnimation(fab_open)
+                isClickable = true
+            }
+            camera_sketch_size_button.apply {
+                startAnimation(fab_open)
+                isClickable = true
+            }
+            isFabOpen = true
+        }
+    }
+
+    private fun startCamera() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
         val executor = Executors.newSingleThreadExecutor()
-        cameraProviderFuture.addListener(Runnable{
-            val cameraProvider : ProcessCameraProvider = cameraProviderFuture.get()
+        cameraProviderFuture.addListener(Runnable {
+            val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
 
             val preview = Preview.Builder()
                 .build()
@@ -44,32 +164,41 @@ class CameraSketch : AppCompatActivity() {
 
             val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
             imageCapture = ImageCapture.Builder().build()
-            try{
+            try {
                 cameraProvider.unbindAll()
                 cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageCapture)
-            }catch (exc : Exception){
+            } catch (exc: Exception) {
                 Log.e("Camera Error", "Use case binding failed")
             }
         }, executor)
     }
 
-    private fun takePicture(){
+    private fun takePicture() {
         val imageCapture = imageCapture ?: return
 
-        val photoFile = File(getOutputDirectory(), SimpleDateFormat("yyyy-MM-dd-HH-mm-ss-SSS", Locale.KOREA).format(System.currentTimeMillis()) + ".jpg")
+        val photoFile = File(
+            getOutputDirectory(),
+            SimpleDateFormat(
+                "yyyy-MM-dd-HH-mm-ss-SSS",
+                Locale.KOREA
+            ).format(System.currentTimeMillis()) + ".jpg"
+        )
 
         val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
 
-        imageCapture.takePicture(outputOptions, ContextCompat.getMainExecutor(this), object : ImageCapture.OnImageSavedCallback{
-            override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-                Log.d("ImageSaved", "Success")
-            }
+        imageCapture.takePicture(
+            outputOptions,
+            ContextCompat.getMainExecutor(this),
+            object : ImageCapture.OnImageSavedCallback {
+                override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
+                    Log.d("ImageSaved", "Success")
+                }
 
-            override fun onError(exception: ImageCaptureException) {
-                Log.e("ImageSaved", "Error")
-            }
+                override fun onError(exception: ImageCaptureException) {
+                    Log.e("ImageSaved", "Error")
+                }
 
-        })
+            })
     }
 
     private fun getOutputDirectory(): File {
@@ -90,9 +219,38 @@ class CameraSketch : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             android.R.id.home -> finish()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun saveImage() {
+        var displayMetrics = DisplayMetrics()
+        windowManager.defaultDisplay.getMetrics(displayMetrics)
+        val imageBitmap = camera_sketch_previewView.bitmap
+
+        val canvasBitmap = Bitmap.createBitmap(
+            displayMetrics.widthPixels,
+            displayMetrics.heightPixels,
+            Bitmap.Config.ARGB_8888
+        )
+
+        var canvas = Canvas(canvasBitmap).apply {
+            if (imageBitmap != null) {
+                drawBitmap(imageBitmap, gallery_sketch_imageView.x, gallery_sketch_imageView.y, null)
+            }
+            drawBitmap(sketchView.getBitmap(), sketchView.x, sketchView.y, null)
+        }
+
+        val photoFile = File(getOutputDirectory(), "${System.currentTimeMillis()}.png")
+        photoFile.createNewFile()
+        val bos = ByteArrayOutputStream()
+        canvasBitmap.compress(Bitmap.CompressFormat.PNG, 90, bos)
+        val fos = FileOutputStream(photoFile)
+        fos.write(bos.toByteArray())
+        fos.flush()
+        fos.close()
+        Toast.makeText(this, "success", Toast.LENGTH_SHORT).show()
     }
 }
