@@ -51,8 +51,6 @@ class CameraSketch : AppCompatActivity() {
 
         cameraController = CameraController(previewView = camera_sketch_previewView, lifecycleOwner = this as LifecycleOwner, context = this)
 
-        setToolbar()
-
         fab_open = AnimationUtils.loadAnimation(this, R.anim.fab_open)
         fab_close = AnimationUtils.loadAnimation(this, R.anim.fab_close)
 
@@ -162,15 +160,6 @@ class CameraSketch : AppCompatActivity() {
         }
         return if (mediaDir != null && mediaDir.exists())
             mediaDir else filesDir
-    }
-
-    private fun setToolbar() {
-        camera_sketch_toolbar.apply {
-            title = ""
-            subtitle = ""
-        }
-        setSupportActionBar(camera_sketch_toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
