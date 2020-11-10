@@ -11,6 +11,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -201,11 +202,19 @@ class CameraSketch : AppCompatActivity() {
         )
 
         var canvas = Canvas(canvasBitmap).apply {
-            if (imageBitmap != null) {
+            if (testView.visibility == View.INVISIBLE) {
                 drawBitmap(
-                    imageBitmap,
+                    imageBitmap!!,
                     camera_sketch_previewView.x,
                     camera_sketch_previewView.y,
+                    null
+                )
+            }
+            else{
+                drawBitmap(
+                    getBitmapFromImageView(testView),
+                    testView.x,
+                    testView.y,
                     null
                 )
             }
@@ -221,5 +230,15 @@ class CameraSketch : AppCompatActivity() {
         fos.flush()
         fos.close()
         Toast.makeText(this, "success", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun getBitmapFromImageView(imageView: ImageView): Bitmap {
+        var canvasBitmap =
+            Bitmap.createBitmap(imageView.width, imageView.height, Bitmap.Config.ARGB_8888)
+
+        var canvas = Canvas(canvasBitmap)
+
+        imageView.draw(canvas)
+        return canvasBitmap
     }
 }
