@@ -40,7 +40,7 @@ class CameraSketch : AppCompatActivity() {
     private lateinit var fab_open: Animation
     private lateinit var fab_close: Animation
     private var isFabOpen = false
-    private var imageCapture: ImageCapture? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +51,6 @@ class CameraSketch : AppCompatActivity() {
         fab_open = AnimationUtils.loadAnimation(this, R.anim.fab_open)
         fab_close = AnimationUtils.loadAnimation(this, R.anim.fab_close)
 
-        startCamera()
         addSketchView()
 
         camera_brush_button.setOnClickListener {
@@ -148,57 +147,6 @@ class CameraSketch : AppCompatActivity() {
             }
             isFabOpen = true
         }
-    }
-
-    private fun startCamera() {
-        val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
-        val executor = Executors.newSingleThreadExecutor()
-        cameraProviderFuture.addListener(Runnable {
-            val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
-
-            val preview = Preview.Builder()
-                .build()
-                .also {
-                    it.setSurfaceProvider(camera_sketch_previewView.surfaceProvider)
-                }
-
-            val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
-            imageCapture = ImageCapture.Builder().build()
-            try {
-                cameraProvider.unbindAll()
-                cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageCapture)
-            } catch (exc: Exception) {
-                Log.e("Camera Error", "Use case binding failed")
-            }
-        }, executor)
-    }
-
-    private fun takePicture() {
-        val imageCapture = imageCapture ?: return
-
-        val photoFile = File(
-            getOutputDirectory(),
-            SimpleDateFormat(
-                "yyyy-MM-dd-HH-mm-ss-SSS",
-                Locale.KOREA
-            ).format(System.currentTimeMillis()) + ".jpg"
-        )
-
-        val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
-
-        imageCapture.takePicture(
-            outputOptions,
-            ContextCompat.getMainExecutor(this),
-            object : ImageCapture.OnImageSavedCallback {
-                override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-                    Log.d("ImageSaved", "Success")
-                }
-
-                override fun onError(exception: ImageCaptureException) {
-                    Log.e("ImageSaved", "Error")
-                }
-
-            })
     }
 
     private fun getOutputDirectory(): File {
