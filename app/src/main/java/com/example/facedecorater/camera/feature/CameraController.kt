@@ -1,13 +1,18 @@
 package com.example.facedecorater.camera.feature
 
 import android.content.Context
+import android.graphics.Point
+import android.util.DisplayMetrics
 import android.util.Log
+import android.util.Rational
+import android.util.Size
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import java.io.File
 import java.text.SimpleDateFormat
@@ -22,11 +27,13 @@ class CameraController(
 
     private var imageCapture: ImageCapture? = null
 
-    private fun startCamera(previewView: PreviewView) {
+    public fun startCamera() {
+
         val cameraProviderFuture = ProcessCameraProvider.getInstance(context)
         val executor = Executors.newSingleThreadExecutor()
         cameraProviderFuture.addListener({
             val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
+
 
             val preview = Preview.Builder()
                 .build()
@@ -47,7 +54,7 @@ class CameraController(
             } catch (exc: Exception) {
                 Log.e("Camera Error", "Use case binding failed")
             }
-        }, executor)
+        }, ContextCompat.getMainExecutor(context))
     }
 
     private fun takePicture(outputDirectory: File) {

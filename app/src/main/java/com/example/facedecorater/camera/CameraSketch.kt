@@ -3,6 +3,7 @@ package com.example.facedecorater.camera
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.Point
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.util.Log
@@ -21,7 +22,9 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.LifecycleOwner
 import com.example.facedecorater.R
+import com.example.facedecorater.camera.feature.CameraController
 import com.example.facedecorater.gallery.SketchView
 import com.jaredrummler.android.colorpicker.ColorPickerDialog
 import com.jaredrummler.android.colorpicker.ColorPickerDialogListener
@@ -40,11 +43,13 @@ class CameraSketch : AppCompatActivity() {
     private lateinit var fab_open: Animation
     private lateinit var fab_close: Animation
     private var isFabOpen = false
-
+    private var cameraController:CameraController? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.camera_sketch_layout)
+
+        cameraController = CameraController(previewView = camera_sketch_previewView, lifecycleOwner = this as LifecycleOwner, context = this)
 
         setToolbar()
 
@@ -92,6 +97,8 @@ class CameraSketch : AppCompatActivity() {
                 create()
             }.run { show() }
         }
+
+        cameraController?.startCamera()
     }
 
     private fun addSketchView() {
@@ -113,7 +120,7 @@ class CameraSketch : AppCompatActivity() {
             connect(
                 sketchView.id,
                 ConstraintSet.TOP,
-                camera_sketch_toolbar.id,
+                camera_sketch_layout.id,
                 ConstraintSet.BOTTOM
             )
             connect(
