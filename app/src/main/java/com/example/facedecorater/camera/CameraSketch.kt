@@ -171,6 +171,7 @@ class CameraSketch : AppCompatActivity() {
 
     private fun saveImage() {
         var displayMetrics = DisplayMetrics()
+        //api 30사용하기엔 너무 높은 느낌 30에서 deprecated 됨
         windowManager.defaultDisplay.getMetrics(displayMetrics)
         val imageBitmap = camera_sketch_previewView.bitmap
 
