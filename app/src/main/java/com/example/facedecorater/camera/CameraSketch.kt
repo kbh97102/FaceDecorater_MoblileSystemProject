@@ -22,8 +22,6 @@ import com.example.facedecorater.gallery.SketchView
 import com.jaredrummler.android.colorpicker.ColorPickerDialog
 import com.jaredrummler.android.colorpicker.ColorPickerDialogListener
 import kotlinx.android.synthetic.main.camera_sketch_layout.*
-import kotlinx.android.synthetic.main.gallery_sketch_layout.*
-import kotlinx.android.synthetic.main.gallery_sticker_layout.*
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -108,12 +106,7 @@ class CameraSketch : AppCompatActivity() {
                 create()
             }.run { show() }
         }
-        camera_back_button.setOnClickListener {
-            animFab()
-            finish()
-        }
-        camera_save_button.setOnClickListener {
-            animFab()
+        camera_sketch_saveButton.setOnClickListener {
             saveImage()
         }
     }
@@ -204,8 +197,8 @@ class CameraSketch : AppCompatActivity() {
             if (imageBitmap != null) {
                 drawBitmap(
                     imageBitmap,
-                    gallery_sketch_imageView.x,
-                    gallery_sketch_imageView.y,
+                    camera_sketch_previewView.x,
+                    camera_sketch_previewView.y,
                     null
                 )
             }
