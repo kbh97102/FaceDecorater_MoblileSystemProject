@@ -27,7 +27,7 @@ class CameraController(
 
     private var imageCapture: ImageCapture? = null
 
-    public fun startCamera() {
+    public fun startCamera(point : Point) {
 
         val cameraProviderFuture = ProcessCameraProvider.getInstance(context)
         val executor = Executors.newSingleThreadExecutor()
@@ -36,6 +36,7 @@ class CameraController(
 
 
             val preview = Preview.Builder()
+                .setTargetResolution(Size(point.x, point.y))
                 .build()
                 .also {
                     it.setSurfaceProvider(previewView.surfaceProvider)

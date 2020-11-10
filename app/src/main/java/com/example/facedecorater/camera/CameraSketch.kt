@@ -6,7 +6,6 @@ import android.graphics.Color
 import android.graphics.Point
 import android.os.Bundle
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.animation.Animation
@@ -15,13 +14,7 @@ import android.widget.SeekBar
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.camera.core.CameraSelector
-import androidx.camera.core.ImageCapture
-import androidx.camera.core.ImageCaptureException
-import androidx.camera.core.Preview
-import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.constraintlayout.widget.ConstraintSet
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import com.example.facedecorater.R
 import com.example.facedecorater.camera.feature.CameraController
@@ -30,32 +23,52 @@ import com.jaredrummler.android.colorpicker.ColorPickerDialog
 import com.jaredrummler.android.colorpicker.ColorPickerDialogListener
 import kotlinx.android.synthetic.main.camera_sketch_layout.*
 import kotlinx.android.synthetic.main.gallery_sketch_layout.*
+import kotlinx.android.synthetic.main.gallery_sticker_layout.*
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
-import java.text.SimpleDateFormat
-import java.util.*
-import java.util.concurrent.Executors
 
 class CameraSketch : AppCompatActivity() {
 
-    private lateinit var sketchView: SketchView
     private lateinit var fab_open: Animation
     private lateinit var fab_close: Animation
     private var isFabOpen = false
-    private var cameraController:CameraController? = null
+    private var cameraController: CameraController? = null
+    private lateinit var sketchView: SketchView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.camera_sketch_layout)
 
-        cameraController = CameraController(previewView = camera_sketch_previewView, lifecycleOwner = this as LifecycleOwner, context = this)
+        cameraController = CameraController(
+            previewView = camera_sketch_previewView,
+            lifecycleOwner = this as LifecycleOwner,
+            context = this
+        )
 
         fab_open = AnimationUtils.loadAnimation(this, R.anim.fab_open)
         fab_close = AnimationUtils.loadAnimation(this, R.anim.fab_close)
 
-        addSketchView()
+        setToolbar()
 
+        addSketchView()
+        setButtonListener()
+
+        var point = Point()
+        display?.getSize(point)
+        cameraController?.startCamera(point)
+    }
+
+    private fun setToolbar() {
+        camera_sketch_toolbar.apply {
+            title = ""
+            subtitle = ""
+        }
+        setSupportActionBar(camera_sketch_toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    private fun setButtonListener() {
         camera_brush_button.setOnClickListener {
             animFab()
         }
@@ -95,8 +108,14 @@ class CameraSketch : AppCompatActivity() {
                 create()
             }.run { show() }
         }
-
-        cameraController?.startCamera()
+        camera_back_button.setOnClickListener {
+            animFab()
+            finish()
+        }
+        camera_save_button.setOnClickListener {
+            animFab()
+            saveImage()
+        }
     }
 
     private fun addSketchView() {
@@ -118,7 +137,7 @@ class CameraSketch : AppCompatActivity() {
             connect(
                 sketchView.id,
                 ConstraintSet.TOP,
-                camera_sketch_layout.id,
+                camera_sketch_toolbar.id,
                 ConstraintSet.BOTTOM
             )
             connect(
@@ -183,7 +202,12 @@ class CameraSketch : AppCompatActivity() {
 
         var canvas = Canvas(canvasBitmap).apply {
             if (imageBitmap != null) {
-                drawBitmap(imageBitmap, gallery_sketch_imageView.x, gallery_sketch_imageView.y, null)
+                drawBitmap(
+                    imageBitmap,
+                    gallery_sketch_imageView.x,
+                    gallery_sketch_imageView.y,
+                    null
+                )
             }
             drawBitmap(sketchView.getBitmap(), sketchView.x, sketchView.y, null)
         }
