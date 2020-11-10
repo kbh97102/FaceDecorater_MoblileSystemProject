@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.Point
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.animation.Animation
@@ -108,6 +109,12 @@ class CameraSketch : AppCompatActivity() {
         }
         camera_sketch_saveButton.setOnClickListener {
             saveImage()
+        }
+        camera_sketch_takeButton.setOnClickListener {
+            Log.d("Click", "??")
+            //사진 찍은 뒤 마저 그림 그리기
+            cameraController?.takePicture(getOutputDirectory(), testView)
+//            saveImage()
         }
     }
 

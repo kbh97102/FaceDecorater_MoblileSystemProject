@@ -2,10 +2,11 @@ package com.example.facedecorater.camera.feature
 
 import android.content.Context
 import android.graphics.Point
-import android.util.DisplayMetrics
+import android.net.Uri
 import android.util.Log
-import android.util.Rational
 import android.util.Size
+import android.view.View
+import android.widget.ImageView
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
@@ -26,13 +27,14 @@ class CameraController(
 ) {
 
     private var imageCapture: ImageCapture? = null
+    private lateinit var cameraProvider: ProcessCameraProvider
 
-    public fun startCamera(point : Point) {
+    public fun startCamera(point: Point) {
 
         val cameraProviderFuture = ProcessCameraProvider.getInstance(context)
         val executor = Executors.newSingleThreadExecutor()
         cameraProviderFuture.addListener({
-            val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
+            cameraProvider = cameraProviderFuture.get()
 
 
             val preview = Preview.Builder()
@@ -58,7 +60,7 @@ class CameraController(
         }, ContextCompat.getMainExecutor(context))
     }
 
-    private fun takePicture(outputDirectory: File) {
+    fun takePicture(outputDirectory: File, imageView: ImageView) {
         val imageCapture = imageCapture ?: return
 
         val photoFile = File(
@@ -70,13 +72,15 @@ class CameraController(
         )
 
         val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
-        val executor = Executors.newSingleThreadExecutor()
         imageCapture.takePicture(
             outputOptions,
-            executor,
+            ContextCompat.getMainExecutor(context),
             object : ImageCapture.OnImageSavedCallback {
                 override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
                     Log.d("ImageSaved", "Success")
+                    cameraProvider.unbindAll()
+                    imageView.setImageURI(Uri.fromFile(photoFile))
+                    imageView.visibility = View.VISIBLE
                 }
 
                 override fun onError(exception: ImageCaptureException) {
