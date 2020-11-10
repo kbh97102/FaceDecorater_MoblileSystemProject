@@ -27,14 +27,17 @@
 
         </activity>
         <activity android:name=".gallery.GalleryMenuActivity">
+
+        </activity>
+        <activity android:name=".gallery.GallerySketchActivity">
+
+        </activity>
+        <activity android:name=".camera.CameraSketch">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".gallery.GallerySketchActivity">
-
         </activity>
     </application>
 
