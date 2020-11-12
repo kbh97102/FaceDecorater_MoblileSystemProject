@@ -32,7 +32,6 @@ class GalleryMenuActivity : AppCompatActivity() {
             getImageFromGallery()
         }
 
-        //TODO 백스택 관리 어떻게 할까?
         gallery_menu_sticker_button.setOnClickListener {
             startStickerActivity()
         }

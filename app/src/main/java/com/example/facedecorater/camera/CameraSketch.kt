@@ -112,11 +112,18 @@ class CameraSketch : AppCompatActivity() {
             saveImage()
         }
         camera_sketch_takeButton.setOnClickListener {
-            Log.d("Click", "??")
-            //사진 찍은 뒤 마저 그림 그리기
-            cameraController?.takePicture(getOutputDirectory(), testView)
-//            saveImage()
+            if(camera_sketch_imageView.visibility == View.INVISIBLE){
+                cameraController?.takePicture(getOutputDirectory(), camera_sketch_imageView)
+            }
+            else if(camera_sketch_imageView.visibility == View.VISIBLE){
+                camera_sketch_imageView.visibility = View.INVISIBLE
+                camera_sketch_imageView.setImageDrawable(null)
+                var point = Point()
+                display?.getSize(point)
+                cameraController?.startCamera(point)
+            }
         }
+        //TODO 사진 찍고 난뒤 다시 찍을 수 있게끔 하기
     }
 
     private fun addSketchView() {
@@ -202,7 +209,7 @@ class CameraSketch : AppCompatActivity() {
         )
 
         var canvas = Canvas(canvasBitmap).apply {
-            if (testView.visibility == View.INVISIBLE) {
+            if (camera_sketch_imageView.visibility == View.INVISIBLE) {
                 drawBitmap(
                     imageBitmap!!,
                     camera_sketch_previewView.x,
@@ -212,9 +219,9 @@ class CameraSketch : AppCompatActivity() {
             }
             else{
                 drawBitmap(
-                    getBitmapFromImageView(testView),
-                    testView.x,
-                    testView.y,
+                    getBitmapFromImageView(camera_sketch_imageView),
+                    camera_sketch_imageView.x,
+                    camera_sketch_imageView.y,
                     null
                 )
             }
