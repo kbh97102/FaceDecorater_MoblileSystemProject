@@ -4,9 +4,9 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Point
+import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.animation.Animation
@@ -14,6 +14,7 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintSet
@@ -28,6 +29,7 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 
+@RequiresApi(Build.VERSION_CODES.R)
 class CameraSketch : AppCompatActivity() {
 
     private lateinit var fab_open: Animation
@@ -67,6 +69,7 @@ class CameraSketch : AppCompatActivity() {
         setSupportActionBar(camera_sketch_toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
+
 
     private fun setButtonListener() {
         camera_brush_button.setOnClickListener {
@@ -112,10 +115,9 @@ class CameraSketch : AppCompatActivity() {
             saveImage()
         }
         camera_sketch_takeButton.setOnClickListener {
-            if(camera_sketch_imageView.visibility == View.INVISIBLE){
+            if (camera_sketch_imageView.visibility == View.INVISIBLE) {
                 cameraController?.takePicture(getOutputDirectory(), camera_sketch_imageView)
-            }
-            else if(camera_sketch_imageView.visibility == View.VISIBLE){
+            } else if (camera_sketch_imageView.visibility == View.VISIBLE) {
                 camera_sketch_imageView.visibility = View.INVISIBLE
                 camera_sketch_imageView.setImageDrawable(null)
                 var point = Point()
@@ -123,7 +125,6 @@ class CameraSketch : AppCompatActivity() {
                 cameraController?.startCamera(point)
             }
         }
-        //TODO 사진 찍고 난뒤 다시 찍을 수 있게끔 하기
     }
 
     private fun addSketchView() {
@@ -216,8 +217,7 @@ class CameraSketch : AppCompatActivity() {
                     camera_sketch_previewView.y,
                     null
                 )
-            }
-            else{
+            } else {
                 drawBitmap(
                     getBitmapFromImageView(camera_sketch_imageView),
                     camera_sketch_imageView.x,
