@@ -6,6 +6,8 @@
 
     <fragment
         android:name="com.example.facedecorater.camera.feature.FaceArFragment"
+        android:id="@+id/face_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
