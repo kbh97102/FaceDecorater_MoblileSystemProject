@@ -1,21 +1,30 @@
 package com.example.facedecorater.camera
 
+import android.graphics.Bitmap
+import android.media.Image
 import android.os.Bundle
-import android.util.Log
+import android.os.Handler
+import android.os.HandlerThread
+import android.view.PixelCopy
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.facedecorater.R
 import com.example.facedecorater.camera.feature.FaceArFragment
 import com.google.ar.core.AugmentedFace
+import com.google.ar.core.Frame
 import com.google.ar.core.TrackingState
 import com.google.ar.sceneform.ArSceneView
 import com.google.ar.sceneform.FrameTime
-import com.google.ar.sceneform.Node
-import com.google.ar.sceneform.math.Vector3
 import com.google.ar.sceneform.rendering.ModelRenderable
 import com.google.ar.sceneform.rendering.Renderable
 import com.google.ar.sceneform.ux.AugmentedFaceNode
 import kotlinx.android.synthetic.main.camera_ar.*
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 import java.util.*
+import kotlin.collections.ArrayList
+
 
 class AugmentFace : AppCompatActivity() {
 
@@ -23,8 +32,8 @@ class AugmentFace : AppCompatActivity() {
     private var arFragment: FaceArFragment? = null
 
     private var faceRegionsRenderable: ModelRenderable? = null
-    private var renderSource: ArrayList<Int>? = null
-    private var modelList: ArrayList<ModelRenderable>? = null
+    private var modelList: ArrayList<ModelRenderable> = ArrayList()
+    private var changeModel = false
 
     private val faceNodeMap = HashMap<AugmentedFace, AugmentedFaceNode>()
 
@@ -33,21 +42,93 @@ class AugmentFace : AppCompatActivity() {
         setContentView(R.layout.camera_ar)
 
         arFragment = face_fragment as FaceArFragment
-        changeRenderable(R.raw.yellow_sunglasses)
+
+        buildRenderable(R.raw.yellow_sunglasses)
+        buildRenderable(R.raw.sunglasses)
+        buildRenderable(R.raw.fox_face)
+
         setArcore()
 
-        camera_ar_takeButton.setOnClickListener {
 
+        camera_ar_takeButton.setOnClickListener {
+            takeShot()
         }
         camera_ar_sticker_1.setOnClickListener {
-            Log.e("Button click", "CLick")
-            changeRenderable(R.raw.fox_face)
-            setArcore()
+            faceRegionsRenderable = modelList[0]
+            changeModel = true
         }
         camera_ar_sticker_2.setOnClickListener {
-
+            faceRegionsRenderable = modelList[1]
+            changeModel = true
         }
 
+    }
+
+    private fun takeShot() {
+        val photoFile = File(getOutputDirectory(), "test.jpeg")
+        photoFile.createNewFile()
+
+        val bitmap = Bitmap.createBitmap(
+            arFragment!!.arSceneView.width,
+            arFragment!!.arSceneView.height,
+            Bitmap.Config.ARGB_8888
+        )
+
+        val handlerThread = HandlerThread("Save Image")
+        handlerThread.start()
+        PixelCopy.request(arFragment!!.arSceneView, bitmap, { copyResult ->
+            if (copyResult == PixelCopy.SUCCESS) {
+                try {
+                    val fileOutputStream = FileOutputStream(photoFile)
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 90, fileOutputStream)
+                    fileOutputStream.apply {
+                        flush()
+                        close()
+                    }
+                } catch (e: IOException) {
+                    return@request
+                }
+            }
+            handlerThread.quitSafely()
+        }, Handler(handlerThread.looper))
+
+//
+//
+//        val photoFile = File(getOutputDirectory(), "test.jpeg")
+//        photoFile.createNewFile()
+//
+//        val yBuffer = image.planes[0].buffer
+//        val uBuffer = image.planes[1].buffer
+//        val vBuffer = image.planes[2].buffer
+//
+//        val ySize = yBuffer.remaining()
+//        val uSize = uBuffer.remaining()
+//        val vSize = vBuffer.remaining()
+//
+//        val nv21 = ByteArray(ySize+uSize+vSize)
+//
+//        yBuffer.get(nv21, 0, ySize)
+//        vBuffer.get(nv21, ySize, vSize)
+//        uBuffer.get(nv21, ySize+vSize, uSize)
+//
+//        val yuv = YuvImage(nv21, ImageFormat.NV21, image.width, image.height, null)
+//        var baos = ByteArrayOutputStream()
+//        yuv.compressToJpeg(Rect(0,0, image.width, image.height), 90, baos)
+//
+//        val fos = FileOutputStream(photoFile)
+//        fos.write(baos.toByteArray())
+//        fos.flush()
+//        fos.close()
+//        image.close()
+
+    }
+
+    private fun getOutputDirectory(): File {
+        val mediaDir = externalMediaDirs.firstOrNull()?.let {
+            File(it, resources.getString(R.string.app_name)).apply { mkdirs() }
+        }
+        return if (mediaDir != null && mediaDir.exists())
+            mediaDir else filesDir
     }
 
     private fun setArcore() {
@@ -63,8 +144,7 @@ class AugmentFace : AppCompatActivity() {
                 sceneView.session!!.getAllTrackables(
                     AugmentedFace::class.java
                 )
-//
-            // Make new AugmentedFaceNodes for any new faces.
+
             for (face in faceList) {
                 if (!faceNodeMap.containsKey(face)) {
                     val faceNode = AugmentedFaceNode(face)
@@ -74,9 +154,12 @@ class AugmentFace : AppCompatActivity() {
 
                     faceNodeMap[face] = faceNode
                 }
+                if (changeModel) {
+                    faceNodeMap.getValue(face).faceRegionsRenderable = faceRegionsRenderable
+                    changeModel = false
+                }
             }
 
-            // Remove any AugmentedFaceNodes associated with an AugmentedFace that stopped tracking.
             val iter: MutableIterator<Map.Entry<AugmentedFace, AugmentedFaceNode>> =
                 faceNodeMap.entries.iterator()
             while (iter.hasNext()) {
@@ -92,19 +175,15 @@ class AugmentFace : AppCompatActivity() {
         }
     }
 
-    private fun changeRenderable(model: Int) {
+    private fun buildRenderable(modelSource: Int) {
         ModelRenderable.builder()
-            .setSource(this, model)
+            .setSource(this, modelSource)
             .build()
             .thenAccept { modelRenderable: ModelRenderable ->
-                faceRegionsRenderable = modelRenderable
+                modelList.add(modelRenderable)
                 modelRenderable.isShadowCaster = false
                 modelRenderable.isShadowReceiver = false
-
-//                    modelList!!.add(modelRenderable)
+                faceRegionsRenderable = modelRenderable
             }
-
-        // Load the face regions renderable.
-        // This is a skinned model that renders 3D objects mapped to the regions of the augmented face.
     }
 }
