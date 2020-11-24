@@ -21,7 +21,7 @@ class CameraMenuActivity : AppCompatActivity() {
             startActivity(Intent(this, AugmentFace::class.java))
         }
         camera_menu_sticker_button.setOnClickListener {
-
+            startActivity(Intent(this, CameraSticker::class.java))
         }
     }
 
