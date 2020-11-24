@@ -6,7 +6,6 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewConfiguration
 
-//https://developer.android.com/codelabs/advanced-android-kotlin-training-canvas#4 참조
 
 class SketchView(context: Context) : View(context) {
 

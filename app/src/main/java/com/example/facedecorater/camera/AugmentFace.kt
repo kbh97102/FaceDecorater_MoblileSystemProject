@@ -91,36 +91,6 @@ class AugmentFace : AppCompatActivity() {
             }
             handlerThread.quitSafely()
         }, Handler(handlerThread.looper))
-
-//
-//
-//        val photoFile = File(getOutputDirectory(), "test.jpeg")
-//        photoFile.createNewFile()
-//
-//        val yBuffer = image.planes[0].buffer
-//        val uBuffer = image.planes[1].buffer
-//        val vBuffer = image.planes[2].buffer
-//
-//        val ySize = yBuffer.remaining()
-//        val uSize = uBuffer.remaining()
-//        val vSize = vBuffer.remaining()
-//
-//        val nv21 = ByteArray(ySize+uSize+vSize)
-//
-//        yBuffer.get(nv21, 0, ySize)
-//        vBuffer.get(nv21, ySize, vSize)
-//        uBuffer.get(nv21, ySize+vSize, uSize)
-//
-//        val yuv = YuvImage(nv21, ImageFormat.NV21, image.width, image.height, null)
-//        var baos = ByteArrayOutputStream()
-//        yuv.compressToJpeg(Rect(0,0, image.width, image.height), 90, baos)
-//
-//        val fos = FileOutputStream(photoFile)
-//        fos.write(baos.toByteArray())
-//        fos.flush()
-//        fos.close()
-//        image.close()
-
     }
 
     private fun getOutputDirectory(): File {
@@ -148,7 +118,6 @@ class AugmentFace : AppCompatActivity() {
             for (face in faceList) {
                 if (!faceNodeMap.containsKey(face)) {
                     val faceNode = AugmentedFaceNode(face)
-//                    faceNode.localScale = Vector3(0.1f,0.1f,0.1f)
                     faceNode.setParent(scene)
                     faceNode.faceRegionsRenderable = faceRegionsRenderable
 
