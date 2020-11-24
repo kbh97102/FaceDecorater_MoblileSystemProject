@@ -23,18 +23,10 @@
             android:value="required" />
 
         <activity android:name=".MainActivity" />
-        <activity android:name=".gallery.GalleryStickerActivity">
-
-        </activity>
-        <activity android:name=".gallery.GalleryMenuActivity">
-
-        </activity>
-        <activity android:name=".gallery.GallerySketchActivity">
-
-        </activity>
-        <activity android:name=".camera.CameraSketch">
-
-        </activity>
+        <activity android:name=".gallery.GalleryStickerActivity" />
+        <activity android:name=".gallery.GalleryMenuActivity" />
+        <activity android:name=".gallery.GallerySketchActivity" />
+        <activity android:name=".camera.CameraSketch" />
         <activity android:name=".camera.AugmentFace">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,9 +34,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".camera.CameraMenuActivity">
-
-        </activity>
+        <activity android:name=".camera.CameraMenuActivity" />
+        <activity android:name=".camera.CameraSticker"/>
     </application>
 
 </manifest>
