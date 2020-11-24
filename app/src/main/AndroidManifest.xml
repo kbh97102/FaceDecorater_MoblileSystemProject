@@ -22,22 +22,20 @@
             android:name="com.google.ar.core"
             android:value="required" />
 
-        <activity android:name=".MainActivity" />
-        <activity android:name=".gallery.GalleryStickerActivity" />
-        <activity android:name=".gallery.GalleryMenuActivity" />
-        <activity android:name=".gallery.GallerySketchActivity" />
-        <activity android:name=".camera.CameraSketch" />
-        <activity android:name=".camera.AugmentFace">
-
-        </activity>
-        <activity android:name=".camera.CameraMenuActivity" />
-        <activity android:name=".camera.CameraSticker">
+        <activity android:name=".MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".gallery.GalleryStickerActivity" />
+        <activity android:name=".gallery.GalleryMenuActivity" />
+        <activity android:name=".gallery.GallerySketchActivity" />
+        <activity android:name=".camera.CameraSketch" />
+        <activity android:name=".camera.AugmentFace" />
+        <activity android:name=".camera.CameraMenuActivity" />
+        <activity android:name=".camera.CameraSticker" />
     </application>
 
 </manifest>
