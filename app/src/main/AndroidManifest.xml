@@ -42,7 +42,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".camera.CameraMenuActivity">
 
+        </activity>
     </application>
 
 </manifest>
