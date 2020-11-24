@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/camera_sticker_2d_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/black"
@@ -73,22 +75,22 @@
         />
 
     <ImageButton
-        android:id="@+id/gallery_heartSticker"
+        android:id="@+id/camera_heartSticker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@id/camera_sticker_buttonStartGuideline"
         app:layout_constraintTop_toBottomOf="@id/camera_sticker_addButton_topGuideline"
         app:layout_constraintBottom_toTopOf="@id/camera_sticker_addButton_bottomGuideline"
-        app:layout_constraintEnd_toStartOf="@id/gallery_starSticker"
+        app:layout_constraintEnd_toStartOf="@id/camera_starSticker"
         android:src="@drawable/heart_sticker"
         android:background="@android:color/transparent"
         />
 
     <ImageButton
-        android:id="@+id/gallery_starSticker"
+        android:id="@+id/camera_starSticker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/gallery_heartSticker"
+        app:layout_constraintStart_toEndOf="@id/camera_heartSticker"
         app:layout_constraintTop_toBottomOf="@id/camera_sticker_addButton_topGuideline"
         app:layout_constraintBottom_toTopOf="@id/camera_sticker_addButton_bottomGuideline"
         android:src="@drawable/star_sticker"

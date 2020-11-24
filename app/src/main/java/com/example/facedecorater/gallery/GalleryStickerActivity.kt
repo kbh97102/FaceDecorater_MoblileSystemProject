@@ -3,12 +3,10 @@ package com.example.facedecorater.gallery
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.*
-import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
