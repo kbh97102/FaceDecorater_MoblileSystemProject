@@ -21,8 +21,9 @@
             />
     </androidx.appcompat.widget.Toolbar>
 
-    <androidx.camera.view.PreviewView
-        android:id="@+id/camera_sticker_previewView"
+    <fragment
+        android:name="com.example.facedecorater.camera.feature.FaceArFragment"
+        android:id="@+id/camera_sticker_fragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"

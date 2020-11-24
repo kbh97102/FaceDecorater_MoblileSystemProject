@@ -9,5 +9,11 @@ class CameraSticker : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.camera_sticker_2d_layout)
+
+
+    }
+
+    private fun setAr(){
+
     }
 }
