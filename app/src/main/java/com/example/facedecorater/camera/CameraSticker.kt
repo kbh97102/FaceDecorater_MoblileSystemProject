@@ -1,12 +1,19 @@
 package com.example.facedecorater.camera
 
 import android.annotation.SuppressLint
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
+import android.os.Handler
+import android.os.HandlerThread
 import android.util.DisplayMetrics
 import android.view.MotionEvent
+import android.view.PixelCopy
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.facedecorater.R
 import com.example.facedecorater.camera.feature.FaceArFragment
@@ -14,17 +21,22 @@ import com.example.facedecorater.camera.feature.StickerFaceNode
 import com.google.ar.core.AugmentedFace
 import com.google.ar.core.TrackingState
 import kotlinx.android.synthetic.main.camera_sticker_2d_layout.*
-import kotlinx.android.synthetic.main.gallery_sticker_layout.*
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
 
 @SuppressLint("ClickableViewAccessibility")
 class CameraSticker : AppCompatActivity() {
 
     private lateinit var arFragment: FaceArFragment
     private var faceNodeMap = HashMap<AugmentedFace, StickerFaceNode>()
+    private lateinit var stickers: ArrayList<ImageView>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.camera_sticker_2d_layout)
+
+        stickers = ArrayList()
 
         camera_heartSticker.setOnClickListener {
             addSticker(R.drawable.heart_sticker)
@@ -32,14 +44,82 @@ class CameraSticker : AppCompatActivity() {
         camera_starSticker.setOnClickListener {
             addSticker(R.drawable.star_sticker)
         }
+        camera_sticker_saveButton.setOnClickListener {
+            saveImage()
+        }
 
         setAr()
+    }
+
+    private fun saveImage() {
+        val photoFile = File(getOutputDirectory(), "test.jpeg")
+        photoFile.createNewFile()
+
+        val bitmap = Bitmap.createBitmap(
+            arFragment.arSceneView.width,
+            arFragment.arSceneView.height,
+            Bitmap.Config.ARGB_8888
+        )
+
+        val handlerThread = HandlerThread("Save Image")
+        handlerThread.start()
+        PixelCopy.request(arFragment.arSceneView, bitmap, { copyResult ->
+            if (copyResult == PixelCopy.SUCCESS) {
+                saveImageWithSticker(bitmap)
+            }
+            handlerThread.quitSafely()
+        }, Handler(handlerThread.looper))
+    }
+
+    private fun saveImageWithSticker(background: Bitmap) {
+        var displayMetrics = DisplayMetrics()
+        windowManager.defaultDisplay.getMetrics(displayMetrics)
+        val canvasBitmap = Bitmap.createBitmap(
+            displayMetrics.widthPixels,
+            displayMetrics.heightPixels,
+            Bitmap.Config.ARGB_8888
+        )
+
+        var canvas = Canvas(canvasBitmap).apply {
+            drawBitmap(
+                background,
+                camera_sticker_toolbar.x,
+                camera_sticker_toolbar.y + camera_sticker_toolbar.height,
+                null
+            )
+            for (view in stickers) {
+                val stickerBitmap = getBitmapFromImageView(view)
+                drawBitmap(stickerBitmap, view.x, view.y, null)
+            }
+        }
+
+        val photoFile = File(getOutputDirectory(), "StickerTest.png")
+        photoFile.createNewFile()
+        val bos = ByteArrayOutputStream()
+        canvasBitmap.compress(Bitmap.CompressFormat.PNG, 90, bos)
+        val fos = FileOutputStream(photoFile)
+        fos.write(bos.toByteArray())
+        fos.flush()
+        fos.close()
+        Toast.makeText(this, "success", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun getBitmapFromImageView(view: ImageView): Bitmap {
+        val test = view.drawable as BitmapDrawable
+        return test.bitmap
+    }
+
+    private fun getOutputDirectory(): File {
+        val mediaDir = externalMediaDirs.firstOrNull()?.let {
+            File(it, resources.getString(R.string.app_name)).apply { mkdirs() }
+        }
+        return if (mediaDir != null && mediaDir.exists())
+            mediaDir else filesDir
     }
 
     /**
      *  I must use deprecated method because new way is required level is too high(android 11)
      */
-
     private fun addSticker(src: Int) {
         var displayMetrics = DisplayMetrics()
         windowManager.defaultDisplay.getMetrics(displayMetrics)
@@ -70,6 +150,7 @@ class CameraSticker : AppCompatActivity() {
                 }
             }
         }
+        stickers.add(sticker)
         camera_sticker_2d_layout.addView(sticker)
     }
 
