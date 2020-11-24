@@ -32,20 +32,9 @@ class AugmentFace : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.camera_ar)
 
-//        renderSource = ArrayList()
-//        renderSource!!.add(R.raw.sunglasses_01)
-//        renderSource!!.add(R.raw.model)
-//        renderSource!!.add(R.raw.model2)
-//        renderSource!!.add(R.raw.piratehat)
-//        renderSource!!.add(R.raw.fox_face)
-//
-//        modelList = ArrayList()
-
-        arFragment = supportFragmentManager.findFragmentById(R.id.face_fragment) as FaceArFragment
-        changeRenderable(R.raw.fox_face)
+        arFragment = face_fragment as FaceArFragment
+        changeRenderable(R.raw.yellow_sunglasses)
         setArcore()
-
-
 
         camera_ar_takeButton.setOnClickListener {
 
@@ -64,8 +53,8 @@ class AugmentFace : AppCompatActivity() {
     private fun setArcore() {
         val sceneView: ArSceneView = arFragment!!.arSceneView
         sceneView.cameraStreamRenderPriority = Renderable.RENDER_PRIORITY_FIRST
-
         val scene = sceneView.scene
+
         scene.addOnUpdateListener { frameTime: FrameTime? ->
             if (faceRegionsRenderable == null) {
                 return@addOnUpdateListener
@@ -75,18 +64,17 @@ class AugmentFace : AppCompatActivity() {
                     AugmentedFace::class.java
                 )
 //
-//            // Make new AugmentedFaceNodes for any new faces.
-//            for (face in faceList) {
-//                if (!faceNodeMap.containsKey(face)) {
-//                    val faceNode = AugmentedFaceNode(face)
+            // Make new AugmentedFaceNodes for any new faces.
+            for (face in faceList) {
+                if (!faceNodeMap.containsKey(face)) {
+                    val faceNode = AugmentedFaceNode(face)
 //                    faceNode.localScale = Vector3(0.1f,0.1f,0.1f)
-//                    faceNode.setParent(scene)
-//                    faceNode.faceRegionsRenderable = faceRegionsRenderable
-//
-//
-//                    faceNodeMap[face] = faceNode
-//                }
-//            }
+                    faceNode.setParent(scene)
+                    faceNode.faceRegionsRenderable = faceRegionsRenderable
+
+                    faceNodeMap[face] = faceNode
+                }
+            }
 
             // Remove any AugmentedFaceNodes associated with an AugmentedFace that stopped tracking.
             val iter: MutableIterator<Map.Entry<AugmentedFace, AugmentedFaceNode>> =
@@ -115,13 +103,7 @@ class AugmentFace : AppCompatActivity() {
 
 //                    modelList!!.add(modelRenderable)
             }
-        faceRegionsRenderable.let {
-            val node = Node().apply {
-                setParent(arFragment!!.arSceneView.scene)
-                localPosition = Vector3(0f,-3f,-3f)
-            }
-            arFragment!!.arSceneView.scene.addChild(node)
-        }
+
         // Load the face regions renderable.
         // This is a skinned model that renders 3D objects mapped to the regions of the augmented face.
     }

@@ -16,7 +16,7 @@ class FaceArFragment : ArFragment() {
 
     override fun getSessionConfiguration(session: Session?): Config? {
         val config = Config(session)
-        config.setAugmentedFaceMode(AugmentedFaceMode.MESH3D)
+        config.augmentedFaceMode = AugmentedFaceMode.MESH3D
         return config
     }
 
