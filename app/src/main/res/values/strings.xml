@@ -4,4 +4,7 @@
     <string name="camera_button_text">camera</string>
     <string name="save">Save</string>
     <string name="size_text">Control Brush Size</string>
+    <string name="blur">Blur</string>
+    <string name="threshold">Threshold</string>
+    <string name="gray">Gray</string>
 </resources>

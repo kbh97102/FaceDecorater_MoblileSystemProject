@@ -108,7 +108,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Blur"
+        android:text="@string/blur"
         app:layout_constraintTop_toBottomOf="@id/opencv_gausain"
         app:layout_constraintStart_toStartOf="@id/opencv_gausain"
         app:layout_constraintEnd_toEndOf="@id/opencv_gausain"
@@ -118,7 +118,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Threshold"
+        android:text="@string/threshold"
         app:layout_constraintTop_toBottomOf="@id/opencv_threshold"
         app:layout_constraintStart_toStartOf="@id/opencv_threshold"
         app:layout_constraintEnd_toEndOf="@id/opencv_threshold"
@@ -128,7 +128,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Gray"
+        android:text="@string/gray"
         app:layout_constraintTop_toBottomOf="@id/opencv_gray"
         app:layout_constraintStart_toStartOf="@id/opencv_gray"
         app:layout_constraintEnd_toEndOf="@id/opencv_gray"
