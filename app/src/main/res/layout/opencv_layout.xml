@@ -16,6 +16,8 @@
             android:id="@+id/opencv_saveButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:textColor="@android:color/white"
             android:text="@string/save"
             android:layout_gravity="end"
             />
@@ -73,37 +75,64 @@
 
     <ImageButton
         android:id="@+id/opencv_gausain"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="64dp"
+        android:layout_height="74dp"
         app:layout_constraintStart_toEndOf="@id/opencv_startGuideline"
         app:layout_constraintTop_toBottomOf="@id/opencv_topGuideline"
         app:layout_constraintBottom_toTopOf="@id/opencv_bottomGuideline"
-        app:layout_constraintEnd_toStartOf="@id/gallery_starSticker"
-        android:src="@drawable/heart_sticker"
         android:background="@android:color/transparent"
         />
 
     <ImageButton
         android:id="@+id/opencv_threshold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="64dp"
+        android:layout_height="74dp"
         app:layout_constraintStart_toEndOf="@id/opencv_gausain"
         app:layout_constraintTop_toBottomOf="@id/opencv_topGuideline"
         app:layout_constraintBottom_toTopOf="@id/opencv_bottomGuideline"
-        android:src="@drawable/star_sticker"
         android:background="@android:color/transparent"
         android:layout_marginStart="10dp"
         />
 
-    <Button
+    <ImageButton
         android:id="@+id/opencv_gray"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="add"
+        android:layout_width="64dp"
+        android:layout_height="74dp"
         android:layout_marginStart="10dp"
+        android:background="@android:color/transparent"
         app:layout_constraintStart_toEndOf="@id/opencv_threshold"
         app:layout_constraintTop_toBottomOf="@id/opencv_topGuideline"
         app:layout_constraintBottom_toTopOf="@id/opencv_bottomGuideline"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Blur"
+        app:layout_constraintTop_toBottomOf="@id/opencv_gausain"
+        app:layout_constraintStart_toStartOf="@id/opencv_gausain"
+        app:layout_constraintEnd_toEndOf="@id/opencv_gausain"
+        android:textColor="@android:color/white"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Threshold"
+        app:layout_constraintTop_toBottomOf="@id/opencv_threshold"
+        app:layout_constraintStart_toStartOf="@id/opencv_threshold"
+        app:layout_constraintEnd_toEndOf="@id/opencv_threshold"
+        android:textColor="@android:color/white"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gray"
+        app:layout_constraintTop_toBottomOf="@id/opencv_gray"
+        app:layout_constraintStart_toStartOf="@id/opencv_gray"
+        app:layout_constraintEnd_toEndOf="@id/opencv_gray"
+        android:textColor="@android:color/white"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

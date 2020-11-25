@@ -31,29 +31,59 @@ class OpenCvActivity : AppCompatActivity() {
         val uri = intent.getParcelableExtra<Uri>("uri")
         opencv_imageView.setImageURI(uri)
 
-        opencv_gausain.setOnClickListener {
-            opencv_imageView.setImageBitmap(
-                processor.gaussianFilter(
-                    getBitmapFromImagView(
-                        opencv_imageView
-                    )
-                )
-            )
-        }
-        opencv_threshold.setOnClickListener {
-            opencv_imageView.setImageBitmap(
-                processor.threshold(
-                    getBitmapFromImagView(
-                        opencv_imageView
-                    )
-                )
-            )
-        }
-        opencv_gray.setOnClickListener {
-            opencv_imageView.setImageBitmap(processor.gray(getBitmapFromImagView(opencv_imageView)))
-        }
         opencv_saveButton.setOnClickListener {
             saveImage()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        opencv_gausain.apply {
+            setOnClickListener {
+                opencv_imageView.setImageBitmap(
+                    processor.gaussianFilter(
+                        getBitmapFromImagView(
+                            opencv_imageView
+                        )
+                    )
+                )
+            }
+            scaleType = ImageView.ScaleType.FIT_CENTER
+            setImageBitmap(processor.gaussianFilter(
+                getBitmapFromImagView(
+                    opencv_imageView
+                )
+            ))
+        }
+
+        opencv_threshold.apply {
+            setOnClickListener {
+                opencv_imageView.setImageBitmap(
+                    processor.threshold(
+                        getBitmapFromImagView(
+                            opencv_imageView
+                        )
+                    )
+                )
+            }
+            scaleType = ImageView.ScaleType.FIT_CENTER
+            setImageBitmap(processor.threshold(
+                getBitmapFromImagView(
+                    opencv_imageView
+                )
+            ))
+        }
+
+        opencv_gray.apply {
+            setOnClickListener {
+                opencv_imageView.setImageBitmap(processor.gray(getBitmapFromImagView(opencv_imageView)))
+            }
+            scaleType = ImageView.ScaleType.FIT_CENTER
+            setImageBitmap(processor.gray(
+                getBitmapFromImagView(
+                    opencv_imageView
+                )
+            ))
         }
     }
 
