@@ -74,28 +74,16 @@
         app:layout_constraintGuide_percent="0.1"
         />
 
+
     <ImageButton
-        android:id="@+id/camera_ar_sticker_1"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:id="@+id/camera_ar_sticker_2"
+        android:layout_width="90dp"
+        android:layout_height="80dp"
         android:scaleType="fitCenter"
         app:layout_constraintStart_toEndOf="@id/camera_ar_button_start"
         app:layout_constraintTop_toBottomOf="@id/camera_ar_button_top"
         app:layout_constraintBottom_toTopOf="@id/camera_ar_button_bottom"
-        app:layout_constraintEnd_toStartOf="@id/camera_ar_sticker_2"
-        android:src="@drawable/heart_sticker"
-        android:background="@android:color/transparent"
-        />
-
-    <ImageButton
-        android:id="@+id/camera_ar_sticker_2"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:scaleType="fitCenter"
-        app:layout_constraintStart_toEndOf="@id/camera_ar_sticker_1"
-        app:layout_constraintTop_toBottomOf="@id/camera_ar_button_top"
-        app:layout_constraintBottom_toTopOf="@id/camera_ar_button_bottom"
-        android:src="@drawable/star_sticker"
+        android:src="@drawable/black_glasses_button"
         android:background="@android:color/transparent"
         android:layout_marginStart="10dp"
         />
@@ -111,6 +99,7 @@
         app:layout_constraintBottom_toTopOf="@id/camera_ar_button_bottom"
         android:src="@drawable/camera_icon"
         android:background="@android:color/transparent"
+        android:layout_marginStart="15dp"
         />
 
     <ImageButton
@@ -120,7 +109,7 @@
         app:layout_constraintStart_toEndOf="@id/camera_ar_takeButton"
         app:layout_constraintTop_toBottomOf="@id/camera_ar_button_top"
         app:layout_constraintBottom_toTopOf="@id/camera_ar_button_bottom"
-        android:src="@drawable/sun"
+        android:src="@drawable/fox_button"
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
         android:layout_marginStart="30dp"

@@ -1,17 +1,14 @@
 package com.example.facedecorater.camera
 
 import android.graphics.Bitmap
-import android.media.Image
 import android.os.Bundle
 import android.os.Handler
 import android.os.HandlerThread
 import android.view.PixelCopy
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.facedecorater.R
 import com.example.facedecorater.camera.feature.FaceArFragment
 import com.google.ar.core.AugmentedFace
-import com.google.ar.core.Frame
 import com.google.ar.core.TrackingState
 import com.google.ar.sceneform.ArSceneView
 import com.google.ar.sceneform.FrameTime
@@ -33,6 +30,7 @@ class AugmentFace : AppCompatActivity() {
     private var faceRegionsRenderable: ModelRenderable? = null
     private var modelList: ArrayList<ModelRenderable> = ArrayList()
     private var changeModel = false
+    private var selectedModel = 2
 
     private val faceNodeMap = HashMap<AugmentedFace, AugmentedFaceNode>()
 
@@ -42,24 +40,31 @@ class AugmentFace : AppCompatActivity() {
 
         arFragment = face_fragment as FaceArFragment
 
+        buildRenderable(R.raw.fox_face)
         buildRenderable(R.raw.yellow_sunglasses)
         buildRenderable(R.raw.sunglasses)
-        buildRenderable(R.raw.fox_face)
 
         setArcore()
 
         camera_ar_takeButton.setOnClickListener {
             takeShot()
         }
-        camera_ar_sticker_1.setOnClickListener {
-            faceRegionsRenderable = modelList[0]
-            changeModel = true
-        }
         camera_ar_sticker_2.setOnClickListener {
-            faceRegionsRenderable = modelList[1]
+            if(selectedModel != 2){
+                faceRegionsRenderable = modelList[1]
+                changeModel = true
+                camera_ar_sticker_2.setImageResource(R.drawable.yellow_glasses_button)
+            }else{
+                faceRegionsRenderable = modelList[2]
+                changeModel = true
+                camera_ar_sticker_2.setImageResource(R.drawable.black_glasses_button)
+            }
+        }
+        camera_ar_stikcer_3.setOnClickListener {
+            faceRegionsRenderable = modelList[0]
+            selectedModel = 0
             changeModel = true
         }
-
     }
 
     private fun takeShot() {
@@ -118,7 +123,6 @@ class AugmentFace : AppCompatActivity() {
                     val faceNode = AugmentedFaceNode(face)
                     faceNode.setParent(scene)
                     faceNode.faceRegionsRenderable = faceRegionsRenderable
-
                     faceNodeMap[face] = faceNode
                 }
                 if (changeModel) {
