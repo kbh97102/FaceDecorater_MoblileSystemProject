@@ -36,6 +36,7 @@ class CameraSketch : AppCompatActivity() {
     private var isFabOpen = false
     private var cameraController: CameraController? = null
     private lateinit var sketchView: SketchView
+    private var isFront = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +56,7 @@ class CameraSketch : AppCompatActivity() {
         addSketchView()
         setButtonListener()
 
-        cameraController?.startCamera()
+        cameraController?.startCamera(isFront = false)
     }
 
     private fun setToolbar() {
@@ -117,8 +118,13 @@ class CameraSketch : AppCompatActivity() {
             } else if (camera_sketch_imageView.visibility == View.VISIBLE) {
                 camera_sketch_imageView.visibility = View.INVISIBLE
                 camera_sketch_imageView.setImageDrawable(null)
-                cameraController?.startCamera()
+                cameraController?.startCamera(isFront = false)
             }
+        }
+        camera_sketch_change_camera_button.setOnClickListener {
+            cameraController?.unbind()
+            isFront = !isFront
+            cameraController?.startCamera(isFront = isFront)
         }
     }
 
@@ -163,6 +169,10 @@ class CameraSketch : AppCompatActivity() {
                 startAnimation(fab_close)
                 isClickable = false
             }
+            camera_sketch_change_camera_button.apply {
+                startAnimation(fab_close)
+                isClickable = false
+            }
             isFabOpen = false
         } else {
             camera_sketch_color_button.apply {
@@ -170,6 +180,10 @@ class CameraSketch : AppCompatActivity() {
                 isClickable = true
             }
             camera_sketch_size_button.apply {
+                startAnimation(fab_open)
+                isClickable = true
+            }
+            camera_sketch_change_camera_button.apply {
                 startAnimation(fab_open)
                 isClickable = true
             }

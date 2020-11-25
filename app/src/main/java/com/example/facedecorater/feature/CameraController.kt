@@ -25,8 +25,9 @@ class CameraController(
 
     private var imageCapture: ImageCapture? = null
     private lateinit var cameraProvider: ProcessCameraProvider
+    private lateinit var cameraSelector: CameraSelector
 
-    fun startCamera() {
+    fun startCamera(isFront : Boolean) {
 
         val cameraProviderFuture = ProcessCameraProvider.getInstance(context)
         cameraProviderFuture.addListener({
@@ -39,7 +40,11 @@ class CameraController(
                     it.setSurfaceProvider(previewView.surfaceProvider)
                 }
 
-            val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+            if (isFront){
+                cameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
+            }else{
+                cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+            }
             imageCapture = ImageCapture.Builder().build()
             try {
                 cameraProvider.unbindAll()

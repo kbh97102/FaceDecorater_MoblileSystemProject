@@ -26,7 +26,7 @@ class CameraMenuActivity : AppCompatActivity() {
             context = this
         )
 
-        controller!!.startCamera()
+        controller!!.startCamera(isFront = false)
 
         camera_menu_sketch_button.setOnClickListener {
             startWork("sketch")
@@ -49,7 +49,7 @@ class CameraMenuActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         if (Objects.nonNull(controller)) {
-            controller!!.startCamera()
+            controller!!.startCamera(isFront = false)
         }
     }
 
