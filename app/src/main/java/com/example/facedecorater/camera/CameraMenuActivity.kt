@@ -1,7 +1,6 @@
 package com.example.facedecorater.camera
 
 import android.content.Intent
-import android.graphics.Point
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleOwner
@@ -12,7 +11,7 @@ import java.util.*
 
 class CameraMenuActivity : AppCompatActivity() {
 
-    private var controller : CameraController? = null
+    private var controller: CameraController? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,23 +28,29 @@ class CameraMenuActivity : AppCompatActivity() {
         controller!!.startCamera()
 
         camera_menu_sketch_button.setOnClickListener {
-            controller!!.unbind()
-            startActivity(Intent(this, CameraSketch::class.java))
+            startWork("sketch")
         }
         camera_menu_3d_button.setOnClickListener {
-            controller!!.unbind()
-            startActivity(Intent(this, AugmentFace::class.java))
+            startWork("3d")
         }
         camera_menu_sticker_button.setOnClickListener {
-            controller!!.unbind()
-            startActivity(Intent(this, CameraSticker::class.java))
+            startWork("sticker")
         }
     }
 
     override fun onResume() {
         super.onResume()
-        if(Objects.nonNull(controller)){
+        if (Objects.nonNull(controller)) {
             controller!!.startCamera()
+        }
+    }
+
+    private fun startWork(type: String) {
+        controller!!.unbind()
+        when (type) {
+            "sketch" -> startActivity(Intent(this, CameraSketch::class.java))
+            "3d" -> startActivity(Intent(this, AugmentFace::class.java))
+            "sticker" -> startActivity(Intent(this, CameraSticker::class.java))
         }
     }
 
