@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:background="@android:color/black"
         >
         <Button
             android:id="@+id/camera_ar_saveButton"
@@ -17,7 +18,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:text="@string/save"
-            android:background="@android:color/white"
+            android:background="@android:color/transparent"
+            android:textColor="@android:color/white"
             />
     </androidx.appcompat.widget.Toolbar>
 
@@ -74,8 +76,9 @@
 
     <ImageButton
         android:id="@+id/camera_ar_sticker_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:scaleType="fitCenter"
         app:layout_constraintStart_toEndOf="@id/camera_ar_button_start"
         app:layout_constraintTop_toBottomOf="@id/camera_ar_button_top"
         app:layout_constraintBottom_toTopOf="@id/camera_ar_button_bottom"
@@ -86,8 +89,9 @@
 
     <ImageButton
         android:id="@+id/camera_ar_sticker_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:scaleType="fitCenter"
         app:layout_constraintStart_toEndOf="@id/camera_ar_sticker_1"
         app:layout_constraintTop_toBottomOf="@id/camera_ar_button_top"
         app:layout_constraintBottom_toTopOf="@id/camera_ar_button_bottom"
@@ -98,13 +102,28 @@
 
     <ImageButton
         android:id="@+id/camera_ar_takeButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="fitCenter"
+        android:layout_marginBottom="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/camera_ar_button_bottom"
-        android:src="@drawable/brush_icon"
+        android:src="@drawable/camera_icon"
         android:background="@android:color/transparent"
+        />
+
+    <ImageButton
+        android:id="@+id/camera_ar_stikcer_3"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        app:layout_constraintStart_toEndOf="@id/camera_ar_takeButton"
+        app:layout_constraintTop_toBottomOf="@id/camera_ar_button_top"
+        app:layout_constraintBottom_toTopOf="@id/camera_ar_button_bottom"
+        android:src="@drawable/sun"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:layout_marginStart="30dp"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
