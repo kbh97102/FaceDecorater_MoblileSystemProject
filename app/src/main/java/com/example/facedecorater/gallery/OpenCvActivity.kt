@@ -1,17 +1,14 @@
 package com.example.facedecorater.gallery
 
 import android.graphics.Bitmap
-import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.facedecorater.OpenCVProcessor
 import com.example.facedecorater.R
-import kotlinx.android.synthetic.main.gallery_sketch_layout.*
 import kotlinx.android.synthetic.main.opencv_layout.*
 import java.io.ByteArrayOutputStream
 import java.io.File

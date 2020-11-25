@@ -30,7 +30,6 @@ class AugmentFace : AppCompatActivity() {
 
 
     private var arFragment: FaceArFragment? = null
-
     private var faceRegionsRenderable: ModelRenderable? = null
     private var modelList: ArrayList<ModelRenderable> = ArrayList()
     private var changeModel = false
@@ -48,7 +47,6 @@ class AugmentFace : AppCompatActivity() {
         buildRenderable(R.raw.fox_face)
 
         setArcore()
-
 
         camera_ar_takeButton.setOnClickListener {
             takeShot()

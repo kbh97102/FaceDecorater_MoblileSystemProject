@@ -55,45 +55,87 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.92" />
 
-    <Button
+    <ImageButton
         android:id="@+id/gallery_menu_sticker_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="sticker"
+        android:src="@drawable/sticker_icon"
+        android:background="@android:color/transparent"
         app:layout_constraintBottom_toTopOf="@id/button_bottomGuideline"
-        app:layout_constraintEnd_toStartOf="@id/gallery_menu_reselect_button"
-        app:layout_constraintStart_toEndOf="@id/button_startGuideline"
-        app:layout_constraintTop_toBottomOf="@id/button_topGuideline" />
+        app:layout_constraintStart_toStartOf="@id/button_startGuideline"
+        app:layout_constraintTop_toBottomOf="@id/button_topGuideline"
+        app:layout_constraintEnd_toStartOf="@id/gallery_menu_sketch_button"/>
 
-    <Button
-        android:id="@+id/gallery_menu_reselect_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="reselect"
-        app:layout_constraintBottom_toTopOf="@id/button_bottomGuideline"
-        app:layout_constraintEnd_toStartOf="@id/gallery_menu_sketch_button"
-        app:layout_constraintStart_toEndOf="@id/gallery_menu_sticker_button"
-        app:layout_constraintTop_toBottomOf="@id/button_topGuideline" />
-
-    <Button
+    <ImageButton
         android:id="@+id/gallery_menu_sketch_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="sketch"
+        android:src="@drawable/sketch_icon"
+        android:background="@android:color/transparent"
         app:layout_constraintBottom_toTopOf="@id/button_bottomGuideline"
-        app:layout_constraintEnd_toStartOf="@id/button_endGuideline"
-        app:layout_constraintStart_toEndOf="@id/gallery_menu_reselect_button"
-        app:layout_constraintTop_toBottomOf="@id/button_topGuideline" />
+        app:layout_constraintStart_toEndOf="@id/gallery_menu_sticker_button"
+        app:layout_constraintTop_toBottomOf="@id/button_topGuideline"
+        app:layout_constraintEnd_toStartOf="@id/gallery_menu_filter"
+        />
 
-    <Button
+    <ImageButton
         android:id="@+id/gallery_menu_filter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="filter"
+        android:src="@drawable/filter_icon"
+        android:background="@android:color/transparent"
         app:layout_constraintBottom_toTopOf="@id/button_bottomGuideline"
-        app:layout_constraintEnd_toStartOf="@id/button_endGuideline"
         app:layout_constraintStart_toEndOf="@id/gallery_menu_sketch_button"
         app:layout_constraintTop_toBottomOf="@id/button_topGuideline"
+        app:layout_constraintEnd_toStartOf="@id/gallery_menu_reselect_button"
         />
 
+
+    <ImageButton
+        android:id="@+id/gallery_menu_reselect_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/recycle_icon"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toTopOf="@id/button_bottomGuideline"
+        app:layout_constraintTop_toBottomOf="@id/button_topGuideline"
+        app:layout_constraintStart_toEndOf="@id/gallery_menu_filter"
+        app:layout_constraintEnd_toStartOf="@id/button_endGuideline"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="sticker"
+        app:layout_constraintTop_toBottomOf="@id/gallery_menu_sticker_button"
+        app:layout_constraintStart_toStartOf="@id/gallery_menu_sticker_button"
+        app:layout_constraintEnd_toEndOf="@id/gallery_menu_sticker_button"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="sketch"
+        app:layout_constraintTop_toBottomOf="@id/gallery_menu_sketch_button"
+        app:layout_constraintStart_toStartOf="@id/gallery_menu_sketch_button"
+        app:layout_constraintEnd_toEndOf="@id/gallery_menu_sketch_button"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="filter"
+        app:layout_constraintTop_toBottomOf="@id/gallery_menu_filter"
+        app:layout_constraintStart_toStartOf="@id/gallery_menu_filter"
+        app:layout_constraintEnd_toEndOf="@id/gallery_menu_filter"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="reSelect"
+        app:layout_constraintTop_toBottomOf="@id/gallery_menu_reselect_button"
+        app:layout_constraintStart_toStartOf="@id/gallery_menu_reselect_button"
+        app:layout_constraintEnd_toEndOf="@id/gallery_menu_reselect_button"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
