@@ -58,6 +58,9 @@ class GalleryStickerActivity : AppCompatActivity() {
         gallery_starSticker.setOnClickListener {
             addSticker(R.drawable.star_sticker)
         }
+        gallery_sun.setOnClickListener {
+            addSticker(R.drawable.sun)
+        }
         gallery_sticker_addButton.setOnClickListener {
             getImageFromGallery()
         }

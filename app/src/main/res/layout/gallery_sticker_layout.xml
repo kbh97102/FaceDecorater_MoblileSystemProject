@@ -18,6 +18,8 @@
             android:id="@+id/gallery_sticker_saveButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:textColor="@android:color/white"
             android:text="@string/save"
             android:layout_gravity="end"
             />
@@ -97,11 +99,25 @@
         android:layout_marginStart="10dp"
         />
 
-    <Button
+    <ImageButton
+        android:id="@+id/gallery_sun"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        app:layout_constraintStart_toEndOf="@id/gallery_starSticker"
+        app:layout_constraintTop_toBottomOf="@id/gallery_sticker_addButton_topGuideline"
+        app:layout_constraintBottom_toTopOf="@id/gallery_sticker_addButton_bottomGuideline"
+        android:src="@drawable/sun"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:layout_marginStart="10dp"
+        />
+
+    <ImageButton
         android:id="@+id/gallery_sticker_addButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="add"
+        android:src="@drawable/add_sticker_icon"
+        android:background="@android:color/transparent"
         app:layout_constraintTop_toBottomOf="@id/gallery_sticker_addButton_topGuideline"
         app:layout_constraintEnd_toStartOf="@id/gallery_sticker_addButton_endGuideline"
         app:layout_constraintBottom_toTopOf="@id/gallery_sticker_addButton_bottomGuideline"
