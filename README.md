@@ -13,6 +13,12 @@ Icons made by <a href="https://www.flaticon.com/authors/pixelmeetup" title="Pixe
 
 Icons made by <a href="https://www.flaticon.com/authors/kiranshastry" title="Kiranshastry">Kiranshastry</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
 
+Icons made by <a href="https://www.flaticon.com/free-icon/sticker_1681963?term=sticker&page=2&position=51&related_item_id=1681963" title="smalllikeart">smalllikeart</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+
+
+
+
+
 ### ColorPickerLisence
 https://github.com/jaredrummler/ColorPicker
 
