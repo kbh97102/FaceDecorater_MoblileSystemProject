@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import com.example.facedecorater.R
+import kotlinx.android.synthetic.main.gallery_sketch_layout.*
 import kotlinx.android.synthetic.main.gallery_sticker_layout.*
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -38,7 +39,8 @@ class GalleryStickerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.gallery_sticker_layout)
 
-        gallery_sticker_imageView.setImageBitmap(BitmapFactory.decodeResource(resources, R.drawable.test))
+        val uri = intent.getParcelableExtra<Uri>("uri")
+        gallery_sticker_imageView.setImageURI(uri)
 
 
         saveDirectory = getOutputDirectory()

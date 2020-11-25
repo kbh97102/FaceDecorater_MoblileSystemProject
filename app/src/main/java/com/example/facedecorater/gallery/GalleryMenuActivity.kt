@@ -45,6 +45,7 @@ class GalleryMenuActivity : AppCompatActivity() {
 
     private fun startStickerActivity(){
         val intent = Intent(this, GalleryStickerActivity::class.java)
+        intent.putExtra("uri", imageUri)
         startActivity(intent)
     }
 
