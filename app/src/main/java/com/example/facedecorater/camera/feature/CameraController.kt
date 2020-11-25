@@ -29,16 +29,14 @@ class CameraController(
     private var imageCapture: ImageCapture? = null
     private lateinit var cameraProvider: ProcessCameraProvider
 
-    public fun startCamera(point: Point) {
+    fun startCamera() {
 
         val cameraProviderFuture = ProcessCameraProvider.getInstance(context)
-        val executor = Executors.newSingleThreadExecutor()
         cameraProviderFuture.addListener({
             cameraProvider = cameraProviderFuture.get()
 
 
             val preview = Preview.Builder()
-                .setTargetResolution(Size(point.x, point.y))
                 .build()
                 .also {
                     it.setSurfaceProvider(previewView.surfaceProvider)
@@ -87,6 +85,10 @@ class CameraController(
                     Log.e("ImageSaved", "Error")
                 }
             })
+    }
+
+    fun unbind(){
+        cameraProvider.unbindAll()
     }
 
 }

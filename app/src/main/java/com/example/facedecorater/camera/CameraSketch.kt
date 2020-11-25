@@ -56,9 +56,7 @@ class CameraSketch : AppCompatActivity() {
         addSketchView()
         setButtonListener()
 
-        var point = Point()
-        display?.getSize(point)
-        cameraController?.startCamera(point)
+        cameraController?.startCamera()
     }
 
     private fun setToolbar() {
@@ -120,9 +118,7 @@ class CameraSketch : AppCompatActivity() {
             } else if (camera_sketch_imageView.visibility == View.VISIBLE) {
                 camera_sketch_imageView.visibility = View.INVISIBLE
                 camera_sketch_imageView.setImageDrawable(null)
-                var point = Point()
-                display?.getSize(point)
-                cameraController?.startCamera(point)
+                cameraController?.startCamera()
             }
         }
     }

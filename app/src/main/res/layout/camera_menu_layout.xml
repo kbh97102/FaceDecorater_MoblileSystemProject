@@ -12,10 +12,10 @@
         android:theme="@style/menuTheme"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <ImageView
-        android:id="@+id/camera_menu_imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <androidx.camera.view.PreviewView
+        android:id="@+id/camera_menu_preview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/imageGuideLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
