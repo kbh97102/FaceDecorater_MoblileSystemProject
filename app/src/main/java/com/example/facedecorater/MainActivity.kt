@@ -15,17 +15,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.start_activity)
 
-        gallery_button.setOnClickListener {
+        select_gallery.setOnClickListener {
             startActivity(Intent(this, GalleryMenuActivity::class.java))
         }
-        camera_button.setOnClickListener {
+        select_camera.setOnClickListener {
             startActivity(Intent(this, CameraMenuActivity::class.java))
         }
     }
-//
-//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-//        val menuInflater = menuInflater
-//        menuInflater.inflate(R.menu.gallery_menu, menu)
-//        return true
-//    }
+
 }
