@@ -8,16 +8,19 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/camera_sketch_toolbar"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:background="@android:color/black"
         >
         <Button
             android:id="@+id/camera_sketch_saveButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
+            android:background="@android:color/transparent"
+            android:textColor="@android:color/white"
             android:text="@string/save"
             />
     </androidx.appcompat.widget.Toolbar>
@@ -47,10 +50,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"
-        android:src="@drawable/brush_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:maxImageSize="64dp"
+        android:src="@drawable/camera_icon"
+        android:backgroundTint="@android:color/transparent"
+        app:borderWidth="0dp"
+        />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/camera_brush_button"
@@ -60,7 +67,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
-        android:src="@drawable/brush_icon"
+        app:maxImageSize="64dp"
+        android:src="@drawable/add_icon"
+        android:backgroundTint="@android:color/transparent"
+        app:borderWidth="0dp"
         />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -72,8 +82,10 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         android:visibility="invisible"
-        android:src="@drawable/brush_icon"
-        android:background="@android:color/transparent"
+        android:src="@drawable/color_icon"
+        app:maxImageSize="64dp"
+        android:backgroundTint="@android:color/transparent"
+        app:borderWidth="0dp"
         app:elevation="50dp"
         app:pressedTranslationZ="50dp" />
 
@@ -86,9 +98,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
-        android:src="@drawable/brush_icon"
         android:visibility="invisible"
-        android:background="@android:color/transparent"
+        android:src="@drawable/size_icon"
+        app:maxImageSize="64dp"
+        android:backgroundTint="@android:color/transparent"
+        app:borderWidth="0dp"
         app:elevation="100dp"
         app:pressedTranslationZ="50dp" />
 
