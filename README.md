@@ -11,6 +11,7 @@ Icons made by <a href="https://www.flaticon.com/authors/nikita-golubev" title="N
 
 Icons made by <a href="https://www.flaticon.com/authors/pixelmeetup" title="Pixelmeetup">Pixelmeetup</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
 
+Icons made by <a href="https://www.flaticon.com/authors/kiranshastry" title="Kiranshastry">Kiranshastry</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
 
 ### ColorPickerLisence
 https://github.com/jaredrummler/ColorPicker
