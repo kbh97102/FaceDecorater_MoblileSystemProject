@@ -3,7 +3,6 @@ package com.example.facedecorater.camera
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
-import android.graphics.Point
 import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
@@ -20,8 +19,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.lifecycle.LifecycleOwner
 import com.example.facedecorater.R
-import com.example.facedecorater.camera.feature.CameraController
-import com.example.facedecorater.gallery.SketchView
+import com.example.facedecorater.feature.CameraController
+import com.example.facedecorater.feature.SketchView
 import com.jaredrummler.android.colorpicker.ColorPickerDialog
 import com.jaredrummler.android.colorpicker.ColorPickerDialogListener
 import kotlinx.android.synthetic.main.camera_sketch_layout.*

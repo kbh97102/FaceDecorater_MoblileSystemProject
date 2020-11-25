@@ -26,7 +26,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <fragment
-        android:name="com.example.facedecorater.camera.feature.FaceArFragment"
+        android:name="com.example.facedecorater.feature.FaceArFragment"
         android:id="@+id/camera_sticker_fragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"

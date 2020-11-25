@@ -8,7 +8,7 @@ import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.facedecorater.OpenCVProcessor
+import com.example.facedecorater.feature.OpenCVProcessor
 import com.example.facedecorater.R
 import kotlinx.android.synthetic.main.opencv_layout.*
 import java.io.ByteArrayOutputStream

@@ -1,4 +1,4 @@
-package com.example.facedecorater
+package com.example.facedecorater.feature
 
 import android.graphics.Bitmap
 import android.util.Log

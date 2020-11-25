@@ -4,11 +4,10 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.os.Handler
 import android.os.HandlerThread
-import android.util.Log
 import android.view.PixelCopy
 import androidx.appcompat.app.AppCompatActivity
 import com.example.facedecorater.R
-import com.example.facedecorater.camera.feature.FaceArFragment
+import com.example.facedecorater.feature.FaceArFragment
 import com.google.ar.core.AugmentedFace
 import com.google.ar.core.TrackingState
 import com.google.ar.sceneform.ArSceneView
@@ -20,8 +19,6 @@ import kotlinx.android.synthetic.main.camera_ar.*
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
-import java.util.*
-import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 

@@ -16,8 +16,8 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.facedecorater.R
-import com.example.facedecorater.camera.feature.FaceArFragment
-import com.example.facedecorater.camera.feature.StickerFaceNode
+import com.example.facedecorater.feature.FaceArFragment
+import com.example.facedecorater.feature.StickerFaceNode
 import com.google.ar.core.AugmentedFace
 import com.google.ar.core.TrackingState
 import kotlinx.android.synthetic.main.camera_sticker_2d_layout.*

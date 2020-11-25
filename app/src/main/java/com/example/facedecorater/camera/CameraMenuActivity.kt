@@ -6,7 +6,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleOwner
 import com.example.facedecorater.R
-import com.example.facedecorater.camera.feature.CameraController
+import com.example.facedecorater.feature.CameraController
 import kotlinx.android.synthetic.main.camera_menu_layout.*
 import java.util.*
 

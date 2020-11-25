@@ -22,5 +22,4 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, CameraMenuActivity::class.java))
         }
     }
-
 }

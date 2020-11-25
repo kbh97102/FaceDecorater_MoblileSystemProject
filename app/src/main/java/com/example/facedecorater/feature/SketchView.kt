@@ -1,4 +1,4 @@
-package com.example.facedecorater.gallery
+package com.example.facedecorater.feature
 
 import android.content.Context
 import android.graphics.*

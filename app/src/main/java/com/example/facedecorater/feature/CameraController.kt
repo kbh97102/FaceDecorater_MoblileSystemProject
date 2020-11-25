@@ -1,10 +1,8 @@
-package com.example.facedecorater.camera.feature
+package com.example.facedecorater.feature
 
 import android.content.Context
-import android.graphics.Point
 import android.net.Uri
 import android.util.Log
-import android.util.Size
 import android.view.View
 import android.widget.ImageView
 import androidx.camera.core.CameraSelector
@@ -18,7 +16,6 @@ import androidx.lifecycle.LifecycleOwner
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.concurrent.Executors
 
 class CameraController(
     private val previewView: PreviewView,

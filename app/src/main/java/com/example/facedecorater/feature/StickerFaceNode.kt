@@ -1,4 +1,4 @@
-package com.example.facedecorater.camera.feature
+package com.example.facedecorater.feature
 
 import android.content.Context
 import com.example.facedecorater.R
