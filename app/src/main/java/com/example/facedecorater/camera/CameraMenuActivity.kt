@@ -8,6 +8,7 @@ import androidx.lifecycle.LifecycleOwner
 import com.example.facedecorater.R
 import com.example.facedecorater.camera.feature.CameraController
 import kotlinx.android.synthetic.main.camera_menu_layout.*
+import java.util.*
 
 class CameraMenuActivity : AppCompatActivity() {
 
@@ -28,13 +29,23 @@ class CameraMenuActivity : AppCompatActivity() {
         controller!!.startCamera()
 
         camera_menu_sketch_button.setOnClickListener {
+            controller!!.unbind()
             startActivity(Intent(this, CameraSketch::class.java))
         }
         camera_menu_3d_button.setOnClickListener {
+            controller!!.unbind()
             startActivity(Intent(this, AugmentFace::class.java))
         }
         camera_menu_sticker_button.setOnClickListener {
+            controller!!.unbind()
             startActivity(Intent(this, CameraSticker::class.java))
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(Objects.nonNull(controller)){
+            controller!!.startCamera()
         }
     }
 
