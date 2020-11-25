@@ -217,7 +217,7 @@ class GalleryStickerActivity : AppCompatActivity() {
         val src = ImageDecoder.createSource(this.contentResolver, imageUri)
         val bitmap = ImageDecoder.decodeBitmap(src)
 
-        val image = Bitmap.createScaledBitmap(bitmap, 64, 64, false)
+        val image = Bitmap.createScaledBitmap(bitmap, bitmap.width, bitmap.height, false)
 
         var stickerButton = ImageButton(this).apply {
             id = View.generateViewId()

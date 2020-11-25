@@ -113,4 +113,15 @@
         android:layout_marginStart="10dp"
         />
 
+    <ImageButton
+        android:id="@+id/camera_sticker_addButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/add_sticker_icon"
+        android:background="@android:color/transparent"
+        app:layout_constraintTop_toBottomOf="@id/camera_sticker_addButton_topGuideline"
+        app:layout_constraintEnd_toStartOf="@id/camera_sticker_addButton_endGuideline"
+        app:layout_constraintBottom_toTopOf="@id/camera_sticker_addButton_bottomGuideline"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
