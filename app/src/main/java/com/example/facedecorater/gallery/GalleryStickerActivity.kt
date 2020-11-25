@@ -228,7 +228,7 @@ class GalleryStickerActivity : AppCompatActivity() {
                 dpToPixel(64),
                 dpToPixel(64)
             ).also {
-                it.marginStart = 10
+                it.marginStart = 5
             }
 
             setOnClickListener { addSticker(image) }
@@ -238,6 +238,9 @@ class GalleryStickerActivity : AppCompatActivity() {
 
         gallery_sticker_layout.addView(stickerButton)
 
+        if (stickerButtons!!.size >= 5){
+            stickerButtons!!.removeAt(stickerButtons!!.lastIndex)
+        }
         constraintSet.apply {
             clone(gallery_sticker_layout)
             connect(
