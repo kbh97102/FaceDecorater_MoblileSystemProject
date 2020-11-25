@@ -50,6 +50,7 @@ class GalleryStickerActivity : AppCompatActivity() {
         stickerButtons = ArrayList<ImageButton>().apply {
             add(gallery_heartSticker)
             add(gallery_starSticker)
+            add(gallery_sun)
         }
 
         gallery_heartSticker.setOnClickListener {
@@ -222,11 +223,12 @@ class GalleryStickerActivity : AppCompatActivity() {
             id = View.generateViewId()
             setImageBitmap(image)
             setBackgroundColor(Color.TRANSPARENT)
+            scaleType = ImageView.ScaleType.FIT_CENTER
             layoutParams = ConstraintLayout.LayoutParams(
-                ConstraintLayout.LayoutParams.WRAP_CONTENT,
-                ConstraintLayout.LayoutParams.WRAP_CONTENT
+                dpToPixel(64),
+                dpToPixel(64)
             ).also {
-                it.marginStart = 20
+                it.marginStart = 10
             }
 
             setOnClickListener { addSticker(image) }
@@ -258,5 +260,9 @@ class GalleryStickerActivity : AppCompatActivity() {
             )
         }.run { applyTo(gallery_sticker_layout) }
         stickerButtons?.add(stickerButton)
+    }
+    private fun dpToPixel(size : Int):Int{
+        val scale = resources.displayMetrics.density
+        return (size*scale).toInt()
     }
 }
