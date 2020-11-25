@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.2" />
+        app:layout_constraintGuide_percent="0.1" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/button_topGuideline"
@@ -47,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.8" />
+        app:layout_constraintGuide_percent="0.9" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/button_bottomGuideline"
@@ -56,34 +56,67 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.92" />
 
-    <Button
+    <ImageButton
         android:id="@+id/camera_menu_sticker_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="sticker"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/sticker_icon2"
+        android:background="@android:color/transparent"
         app:layout_constraintBottom_toTopOf="@id/button_bottomGuideline"
         app:layout_constraintEnd_toStartOf="@id/camera_menu_3d_button"
         app:layout_constraintStart_toEndOf="@id/button_startGuideline"
         app:layout_constraintTop_toBottomOf="@id/button_topGuideline" />
 
-    <Button
+    <ImageButton
         android:id="@+id/camera_menu_3d_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="3d"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/threed_icon"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@id/button_bottomGuideline"
         app:layout_constraintEnd_toStartOf="@id/camera_menu_sketch_button"
         app:layout_constraintStart_toEndOf="@id/camera_menu_sticker_button"
         app:layout_constraintTop_toBottomOf="@id/button_topGuideline" />
 
-    <Button
+    <ImageButton
         android:id="@+id/camera_menu_sketch_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="sketch"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/sketch_icon2"
+        android:background="@android:color/transparent"
         app:layout_constraintBottom_toTopOf="@id/button_bottomGuideline"
         app:layout_constraintEnd_toStartOf="@id/button_endGuideline"
         app:layout_constraintStart_toEndOf="@id/camera_menu_3d_button"
         app:layout_constraintTop_toBottomOf="@id/button_topGuideline" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sticker"
+        app:layout_constraintTop_toBottomOf="@id/camera_menu_sticker_button"
+        app:layout_constraintStart_toStartOf="@id/camera_menu_sticker_button"
+        app:layout_constraintEnd_toEndOf="@id/camera_menu_sticker_button"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/_3d_sticker"
+        app:layout_constraintTop_toBottomOf="@id/camera_menu_3d_button"
+        app:layout_constraintStart_toStartOf="@id/camera_menu_3d_button"
+        app:layout_constraintEnd_toEndOf="@id/camera_menu_3d_button"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sketch"
+        app:layout_constraintTop_toBottomOf="@id/camera_menu_sketch_button"
+        app:layout_constraintStart_toStartOf="@id/camera_menu_sketch_button"
+        app:layout_constraintEnd_toEndOf="@id/camera_menu_sketch_button"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
