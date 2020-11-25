@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.os.Handler
 import android.os.HandlerThread
+import android.util.Log
 import android.view.PixelCopy
 import androidx.appcompat.app.AppCompatActivity
 import com.example.facedecorater.R
@@ -21,6 +22,7 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 
 class AugmentFace : AppCompatActivity() {
@@ -28,9 +30,9 @@ class AugmentFace : AppCompatActivity() {
 
     private var arFragment: FaceArFragment? = null
     private var faceRegionsRenderable: ModelRenderable? = null
-    private var modelList: ArrayList<ModelRenderable> = ArrayList()
+    private var modelList: HashMap<String, ModelRenderable> = HashMap()
     private var changeModel = false
-    private var selectedModel = 2
+    private var currentType : String = "black"
 
     private val faceNodeMap = HashMap<AugmentedFace, AugmentedFaceNode>()
 
@@ -40,31 +42,33 @@ class AugmentFace : AppCompatActivity() {
 
         arFragment = face_fragment as FaceArFragment
 
-        buildRenderable(R.raw.fox_face)
-        buildRenderable(R.raw.yellow_sunglasses)
-        buildRenderable(R.raw.sunglasses)
+        buildRenderable(R.raw.fox_face, "fox")
+        buildRenderable(R.raw.yellow_sunglasses, "yellow")
+        buildRenderable(R.raw.sunglasses, "black")
 
         setArcore()
 
         camera_ar_takeButton.setOnClickListener {
             takeShot()
         }
+        camera_ar_stikcer_3.setOnClickListener {
+            faceRegionsRenderable = modelList["fox"]
+            changeModel = true
+        }
         camera_ar_sticker_2.setOnClickListener {
-            if(selectedModel != 2){
-                faceRegionsRenderable = modelList[1]
+            if(currentType == "yellow"){
+                faceRegionsRenderable = modelList["black"]
                 changeModel = true
+                currentType = "black"
                 camera_ar_sticker_2.setImageResource(R.drawable.yellow_glasses_button)
             }else{
-                faceRegionsRenderable = modelList[2]
+                faceRegionsRenderable = modelList["yellow"]
                 changeModel = true
+                currentType = "yellow"
                 camera_ar_sticker_2.setImageResource(R.drawable.black_glasses_button)
             }
         }
-        camera_ar_stikcer_3.setOnClickListener {
-            faceRegionsRenderable = modelList[0]
-            selectedModel = 0
-            changeModel = true
-        }
+
     }
 
     private fun takeShot() {
@@ -146,15 +150,21 @@ class AugmentFace : AppCompatActivity() {
         }
     }
 
-    private fun buildRenderable(modelSource: Int) {
+    private fun buildRenderable(modelSource: Int, type : String) {
         ModelRenderable.builder()
             .setSource(this, modelSource)
             .build()
             .thenAccept { modelRenderable: ModelRenderable ->
-                modelList.add(modelRenderable)
                 modelRenderable.isShadowCaster = false
                 modelRenderable.isShadowReceiver = false
-                faceRegionsRenderable = modelRenderable
+                when(type){
+                    "fox" -> modelList["fox"] = modelRenderable
+                    "yellow" -> modelList["yellow"] = modelRenderable
+                    "black" -> {
+                        modelList["black"] = modelRenderable
+                        faceRegionsRenderable = modelRenderable
+                    }
+                }
             }
     }
 }
