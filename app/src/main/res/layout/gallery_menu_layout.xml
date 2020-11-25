@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.2" />
+        app:layout_constraintGuide_percent="0.1" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/button_topGuideline"
@@ -46,7 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.8" />
+        app:layout_constraintGuide_percent="0.9" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/button_bottomGuideline"
@@ -84,5 +84,16 @@
         app:layout_constraintEnd_toStartOf="@id/button_endGuideline"
         app:layout_constraintStart_toEndOf="@id/gallery_menu_reselect_button"
         app:layout_constraintTop_toBottomOf="@id/button_topGuideline" />
+
+    <Button
+        android:id="@+id/gallery_menu_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="filter"
+        app:layout_constraintBottom_toTopOf="@id/button_bottomGuideline"
+        app:layout_constraintEnd_toStartOf="@id/button_endGuideline"
+        app:layout_constraintStart_toEndOf="@id/gallery_menu_sketch_button"
+        app:layout_constraintTop_toBottomOf="@id/button_topGuideline"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

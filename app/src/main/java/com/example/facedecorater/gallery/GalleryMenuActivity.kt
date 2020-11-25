@@ -33,30 +33,40 @@ class GalleryMenuActivity : AppCompatActivity() {
         }
 
         gallery_menu_sticker_button.setOnClickListener {
-            startStickerActivity()
+            startWork("sticker")
         }
         gallery_menu_sketch_button.setOnClickListener {
-            startSketchActivity()
+            startWork("sketch")
         }
         gallery_menu_reselect_button.setOnClickListener {
-            startReselectActivity()
+            startWork("re")
+        }
+        gallery_menu_filter.setOnClickListener {
+            startWork("filter")
         }
     }
 
-    private fun startStickerActivity(){
-        val intent = Intent(this, GalleryStickerActivity::class.java)
-        intent.putExtra("uri", imageUri)
-        startActivity(intent)
-    }
-
-    private fun startSketchActivity(){
-        val intent = Intent(this, GallerySketchActivity::class.java)
-        intent.putExtra("uri", imageUri)
-        startActivity(intent)
-    }
-
-    private fun startReselectActivity(){
-        getImageFromGallery()
+    private fun startWork(type : String){
+        when(type){
+            "sticker" -> {
+                val intent = Intent(this, GalleryStickerActivity::class.java)
+                intent.putExtra("uri", imageUri)
+                startActivity(intent)
+            }
+            "sketch" -> {
+                val intent = Intent(this, GallerySketchActivity::class.java)
+                intent.putExtra("uri", imageUri)
+                startActivity(intent)
+            }
+            "re" -> {
+                getImageFromGallery()
+            }
+            "filter"->{
+                val intent = Intent(this, OpenCvActivity::class.java)
+                intent.putExtra("uri", imageUri)
+                startActivity(intent)
+            }
+        }
     }
 
     private fun getImageFromGallery() {

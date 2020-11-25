@@ -27,6 +27,8 @@ class OpenCvActivity : AppCompatActivity() {
 
         processor = OpenCVProcessor()
 
+        processor.checkOpenCV()
+
         setToolbar()
 
         val uri = intent.getParcelableExtra<Uri>("uri")
