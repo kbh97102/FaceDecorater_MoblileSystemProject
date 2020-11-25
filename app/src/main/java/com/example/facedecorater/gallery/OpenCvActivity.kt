@@ -55,7 +55,6 @@ class OpenCvActivity : AppCompatActivity() {
                 )
             ))
         }
-
         opencv_threshold.apply {
             setOnClickListener {
                 opencv_imageView.setImageBitmap(
@@ -73,7 +72,6 @@ class OpenCvActivity : AppCompatActivity() {
                 )
             ))
         }
-
         opencv_gray.apply {
             setOnClickListener {
                 opencv_imageView.setImageBitmap(processor.gray(getBitmapFromImagView(opencv_imageView)))
@@ -106,7 +104,7 @@ class OpenCvActivity : AppCompatActivity() {
         fos.write(bos.toByteArray())
         fos.flush()
         fos.close()
-        Toast.makeText(this, "success", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Save Success", Toast.LENGTH_SHORT).show()
     }
 
     private fun getOutputDirectory(): File {
