@@ -58,8 +58,8 @@ class StickerFaceNode(private val context: Context, augmentedFace: AugmentedFace
                     isShadowCaster = false
                     isShadowReceiver = false
                 }
-                it.view.camera_sticker_imageView.setImageResource(R.drawable.mustache)
-                noseNode?.renderable = it
+                it.view.camera_sticker_imageView.setImageResource(R.drawable.testnose)
+                mouseNode?.renderable = it
             }
     }
 
@@ -67,13 +67,13 @@ class StickerFaceNode(private val context: Context, augmentedFace: AugmentedFace
         super.onUpdate(frameTime)
         augmentedFace?.let {
             getRegionPose(Region.LEFT_EYE)?.let {
-                eyeNodeLeft?.localPosition = Vector3(it.x, it.y - 0.035f, it.z + 0.015f)
+                eyeNodeLeft?.localPosition = Vector3(it.x - 0.01f, it.y - 0.025f, it.z + 0.015f)
                 eyeNodeLeft?.localScale = Vector3(0.055f, 0.055f, 0.055f)
                 eyeNodeLeft?.localRotation = Quaternion.axisAngle(Vector3(0.0f, 0.0f, 1.0f), -10f)
             }
 
             getRegionPose(Region.RIGHT_EYE)?.let {
-                eyeNodeRight?.localPosition = Vector3(it.x, it.y - 0.035f, it.z + 0.015f)
+                eyeNodeRight?.localPosition = Vector3(it.x + 0.01f, it.y - 0.025f, it.z + 0.015f)
                 eyeNodeRight?.localScale = Vector3(0.055f, 0.055f, 0.055f)
                 eyeNodeRight?.localRotation = Quaternion.axisAngle(Vector3(0.0f, 0.0f, 1.0f), 10f)
             }
@@ -85,7 +85,7 @@ class StickerFaceNode(private val context: Context, augmentedFace: AugmentedFace
             }
 
             getRegionPose(Region.MOUSE)?.let {
-                mouseNode?.localPosition = Vector3(it.x, it.y - 0.035f, it.z + 0.015f)
+                mouseNode?.localPosition = Vector3(it.x, it.y - 0.1f, it.z + 0.015f)
                 mouseNode?.localScale = Vector3(0.07f, 0.07f, 0.07f)
             }
         }

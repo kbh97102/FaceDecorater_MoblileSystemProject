@@ -106,7 +106,7 @@
         app:layout_constraintStart_toEndOf="@id/gallery_starSticker"
         app:layout_constraintTop_toBottomOf="@id/gallery_sticker_addButton_topGuideline"
         app:layout_constraintBottom_toTopOf="@id/gallery_sticker_addButton_bottomGuideline"
-        android:src="@drawable/sun"
+        android:src="@drawable/bitsunglasses"
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
         android:layout_marginStart="10dp"
