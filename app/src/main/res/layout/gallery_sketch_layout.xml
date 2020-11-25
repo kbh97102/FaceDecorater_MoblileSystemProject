@@ -4,6 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/black"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.appcompat.widget.Toolbar
@@ -17,7 +18,9 @@
             android:id="@+id/gallery_sketch_saveButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
             android:text="@string/save"
+            android:textColor="@android:color/white"
             android:layout_gravity="end"
             />
     </androidx.appcompat.widget.Toolbar>
@@ -40,7 +43,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
-        android:src="@drawable/brush_icon"
+        app:maxImageSize="64dp"
+        android:src="@drawable/add_icon"
+        android:backgroundTint="@android:color/transparent"
         />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -52,8 +57,9 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         android:visibility="invisible"
-        android:src="@drawable/brush_icon"
-        android:background="@android:color/transparent"
+        android:src="@drawable/color_icon"
+        app:maxImageSize="64dp"
+        android:backgroundTint="@android:color/transparent"
         app:elevation="50dp"
         app:pressedTranslationZ="50dp" />
 
@@ -66,9 +72,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
-        android:src="@drawable/brush_icon"
+        android:src="@drawable/size_icon"
+        app:maxImageSize="64dp"
         android:visibility="invisible"
-        android:background="@android:color/transparent"
+        android:backgroundTint="@android:color/transparent"
         app:elevation="100dp"
         app:pressedTranslationZ="50dp" />
 
