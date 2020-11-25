@@ -2,6 +2,7 @@ package com.example.facedecorater.camera
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleOwner
 import com.example.facedecorater.R
@@ -36,6 +37,13 @@ class CameraMenuActivity : AppCompatActivity() {
         camera_menu_sticker_button.setOnClickListener {
             startWork("sticker")
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home){
+            finish()
+        }
+        return false
     }
 
     override fun onResume() {
