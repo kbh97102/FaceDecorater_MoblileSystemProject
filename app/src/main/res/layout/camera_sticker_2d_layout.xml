@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/camera_sticker_2d_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/camera_sticker_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:theme="@style/gallery_sticker_theme"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+        <Button
+            android:id="@+id/camera_sticker_saveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/save"
+            android:background="@android:color/transparent"
+            android:textColor="@android:color/white"
+            android:layout_gravity="end"
+            />
+    </androidx.appcompat.widget.Toolbar>
+
+    <fragment
+        android:name="com.example.facedecorater.feature.FaceArFragment"
+        android:id="@+id/camera_sticker_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/camera_sticker_toolbar"
+        app:layout_constraintBottom_toTopOf="@id/imageViewEndGuideline"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/imageViewEndGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.8"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/camera_sticker_addButton_endGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/camera_sticker_addButton_topGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.85"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/camera_sticker_addButton_bottomGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.95"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/camera_sticker_buttonStartGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1"
+        />
+
+    <ImageButton
+        android:id="@+id/camera_heartSticker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/camera_sticker_buttonStartGuideline"
+        app:layout_constraintTop_toBottomOf="@id/camera_sticker_addButton_topGuideline"
+        app:layout_constraintBottom_toTopOf="@id/camera_sticker_addButton_bottomGuideline"
+        app:layout_constraintEnd_toStartOf="@id/camera_starSticker"
+        android:src="@drawable/heart_sticker"
+        android:background="@android:color/transparent"
+        />
+
+    <ImageButton
+        android:id="@+id/camera_starSticker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/camera_heartSticker"
+        app:layout_constraintTop_toBottomOf="@id/camera_sticker_addButton_topGuideline"
+        app:layout_constraintBottom_toTopOf="@id/camera_sticker_addButton_bottomGuideline"
+        android:src="@drawable/star_sticker"
+        android:background="@android:color/transparent"
+        android:layout_marginStart="10dp"
+        />
+
+    <ImageButton
+        android:id="@+id/camera_sun"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        app:layout_constraintStart_toEndOf="@id/camera_starSticker"
+        app:layout_constraintTop_toBottomOf="@id/camera_sticker_addButton_topGuideline"
+        app:layout_constraintBottom_toTopOf="@id/camera_sticker_addButton_bottomGuideline"
+        android:src="@drawable/sun"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:layout_marginStart="10dp"
+        />
+
+    <ImageButton
+        android:id="@+id/camera_sticker_addButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/add_sticker_icon"
+        android:background="@android:color/transparent"
+        app:layout_constraintTop_toBottomOf="@id/camera_sticker_addButton_topGuideline"
+        app:layout_constraintEnd_toStartOf="@id/camera_sticker_addButton_endGuideline"
+        app:layout_constraintBottom_toTopOf="@id/camera_sticker_addButton_bottomGuideline"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

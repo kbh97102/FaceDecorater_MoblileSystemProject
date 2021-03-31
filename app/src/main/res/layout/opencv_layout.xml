@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/opencv_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:theme="@style/gallery_sticker_theme"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+        <Button
+            android:id="@+id/opencv_saveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:textColor="@android:color/white"
+            android:text="@string/save"
+            android:layout_gravity="end"
+            />
+    </androidx.appcompat.widget.Toolbar>
+
+    <ImageView
+        android:id="@+id/opencv_imageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/opencv_toolbar"
+        app:layout_constraintBottom_toTopOf="@id/imageViewEndGuideline"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/imageViewEndGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.8"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/opencv_endGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/opencv_topGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.85"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/opencv_bottomGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.95"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/opencv_startGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1"
+        />
+
+    <ImageButton
+        android:id="@+id/opencv_gausain"
+        android:layout_width="64dp"
+        android:layout_height="74dp"
+        app:layout_constraintStart_toEndOf="@id/opencv_startGuideline"
+        app:layout_constraintTop_toBottomOf="@id/opencv_topGuideline"
+        app:layout_constraintBottom_toTopOf="@id/opencv_bottomGuideline"
+        android:background="@android:color/transparent"
+        />
+
+    <ImageButton
+        android:id="@+id/opencv_threshold"
+        android:layout_width="64dp"
+        android:layout_height="74dp"
+        app:layout_constraintStart_toEndOf="@id/opencv_gausain"
+        app:layout_constraintTop_toBottomOf="@id/opencv_topGuideline"
+        app:layout_constraintBottom_toTopOf="@id/opencv_bottomGuideline"
+        android:background="@android:color/transparent"
+        android:layout_marginStart="10dp"
+        />
+
+    <ImageButton
+        android:id="@+id/opencv_gray"
+        android:layout_width="64dp"
+        android:layout_height="74dp"
+        android:layout_marginStart="10dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintStart_toEndOf="@id/opencv_threshold"
+        app:layout_constraintTop_toBottomOf="@id/opencv_topGuideline"
+        app:layout_constraintBottom_toTopOf="@id/opencv_bottomGuideline"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/blur"
+        app:layout_constraintTop_toBottomOf="@id/opencv_gausain"
+        app:layout_constraintStart_toStartOf="@id/opencv_gausain"
+        app:layout_constraintEnd_toEndOf="@id/opencv_gausain"
+        android:textColor="@android:color/white"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/threshold"
+        app:layout_constraintTop_toBottomOf="@id/opencv_threshold"
+        app:layout_constraintStart_toStartOf="@id/opencv_threshold"
+        app:layout_constraintEnd_toEndOf="@id/opencv_threshold"
+        android:textColor="@android:color/white"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/gray"
+        app:layout_constraintTop_toBottomOf="@id/opencv_gray"
+        app:layout_constraintStart_toStartOf="@id/opencv_gray"
+        app:layout_constraintEnd_toEndOf="@id/opencv_gray"
+        android:textColor="@android:color/white"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

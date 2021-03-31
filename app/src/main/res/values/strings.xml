@@ -2,4 +2,12 @@
     <string name="app_name">FaceDecorater</string>
     <string name="gallery_button_text">Gallery</string>
     <string name="camera_button_text">camera</string>
+    <string name="save">Save</string>
+    <string name="size_text">Control Brush Size</string>
+    <string name="blur">Blur</string>
+    <string name="threshold">Threshold</string>
+    <string name="gray">Gray</string>
+    <string name="sticker">Sticker</string>
+    <string name="_3d_sticker">3D Sticker</string>
+    <string name="sketch">Sketch</string>
 </resources>
